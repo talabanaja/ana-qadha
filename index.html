@@ -1,313 +1,4 @@
-function generateAcademicResponse(message) {
-            const responses = {
-                'computer science': "Computer Science is an excellent choice! It's one of the most in-demand fields in Saudi Arabia, especially with Vision 2030's focus on digital transformation. You'll study programming, algorithms, AI, and software development. Top universities include KAUST, King Saud University, and KFUPM. Career prospects include software developer, data scientist, cybersecurity specialist.",
-                'medicine': "Medicine is a prestigious and rewarding field! Saudi Arabia is investing heavily in healthcare as part of Vision 2030. You'll need strong grades in biology, chemistry, and physics. The program is typically 6-7 years including internship. King Saud University, King Abdulaziz University, and Imam Abdulrahman University have excellent medical programs.",
-                'engineering': "Engineering offers many exciting specializations! Mechanical, electrical, civil, and chemical engineering are all in high demand. Saudi Arabia needs engineers for NEOM, renewable energy projects, and infrastructure development. KFUPM, KAUST, and King Saud University have top engineering programs.",
-                'business': "Business Administration opens doors to many careers! With Saudi Arabia's economic diversification, there's growing demand for business professionals in finance, marketing, and management. Consider specializing in areas like fintech, e-commerce, or international business to align with Vision 2030 goals.",
-                'default': "That's a great question! I can help you explore any major or career path. Some popular fields in Saudi Arabia include technology, healthcare, engineering, business, and renewable energy. What specific area interests you most? I can provide detailed information about requirements, job prospects, and top universities."
-            };
-
-            const lowerMessage = message.toLowerCase();
-            
-            if (lowerMessage.includes('computer') || lowerMessage.includes('programming') || lowerMessage.includes('software')) return responses['computer science'];
-            if (lowerMessage.includes('medicine') || lowerMessage.includes('doctor') || lowerMessage.includes('medical')) return responses['medicine'];
-            if (lowerMessage.includes('engineering') || lowerMessage.includes('engineer')) return responses['engineering'];
-            if (lowerMessage.includes('business') || lowerMessage.includes('management') || lowerMessage.includes('finance')) return responses['business'];
-            
-            return responses['default'];
-        }
-
-        // Career Professional Functions
-        function handleCVUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const uploadZone = document.querySelector('.upload-zone');
-                uploadZone.innerHTML = `
-                    <div class="loading" style="margin: 0 auto 12px;"></div>
-                    <h4>Analyzing ${file.name}...</h4>
-                    <p style="color: var(--text-secondary); margin-top: 8px;">This may take a moment</p>
-                `;
-
-                setTimeout(() => {
-                    document.getElementById('cvAnalysis').classList.remove('hidden');
-                    uploadZone.innerHTML = `
-                        <div style="color: var(--primary-green); font-size: 32px; margin-bottom: 12px;">✅</div>
-                        <h4>CV Uploaded Successfully</h4>
-                        <p style="color: var(--text-secondary); margin-top: 8px;">${file.name}</p>
-                    `;
-                }, 3000);
-            }
-        }
-
-        function selectGoal(element, goal) {
-            document.querySelectorAll('.goal-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            element.classList.add('selected');
-            selectedGoal = goal;
-        }
-
-        function generateCourseRecommendations() {
-            if (!selectedGoal) {
-                alert('Please select your goal first!');
-                return;
-            }
-
-            const coursesByGoal = {
-                'better-job': [
-                    { title: "Advanced Data Analytics", provider: "Coursera", duration: "6 weeks", rating: "4.8", level: "Intermediate", price: "Free" },
-                    { title: "Digital Marketing Mastery", provider: "Udemy", duration: "25 hours", rating: "4.6", level: "Beginner", price: "SAR 299" },
-                    { title: "Cloud Computing AWS", provider: "edX", duration: "8 weeks", rating: "4.7", level: "Advanced", price: "SAR 450" },
-                    { title: "Project Management Professional", provider: "Coursera", duration: "4 months", rating: "4.9", level: "Intermediate", price: "SAR 149/mo" },
-                    { title: "Python for Data Science", provider: "DataCamp", duration: "40 hours", rating: "4.5", level: "Beginner", price: "SAR 99/mo" },
-                    { title: "UI/UX Design Fundamentals", provider: "Udemy", duration: "30 hours", rating: "4.7", level: "Beginner", price: "SAR 199" },
-                    { title: "Financial Analysis & Modeling", provider: "Coursera", duration: "10 weeks", rating: "4.8", level: "Advanced", price: "SAR 299" },
-                    { title: "Artificial Intelligence Basics", provider: "edX", duration: "12 weeks", rating: "4.6", level: "Intermediate", price: "Free" },
-                    { title: "Social Media Strategy", provider: "LinkedIn Learning", duration: "15 hours", rating: "4.4", level: "Beginner", price: "SAR 79/mo" },
-                    { title: "Cybersecurity Fundamentals", provider: "Coursera", duration: "6 months", rating: "4.7", level: "Intermediate", price: "SAR 199/mo" }
-                ],
-                'job-ready': [
-                    { title: "Advanced Excel & Data Analysis", provider: "Udemy", duration: "20 hours", rating: "4.8", level: "Intermediate", price: "SAR 199" },
-                    { title: "Communication Skills for Professionals", provider: "Coursera", duration: "4 weeks", rating: "4.6", level: "Beginner", price: "Free" },
-                    { title: "Time Management & Productivity", provider: "LinkedIn Learning", duration: "8 hours", rating: "4.5", level: "Beginner", price: "SAR 79/mo" },
-                    { title: "Industry-Specific Software Training", provider: "Udemy", duration: "15 hours", rating: "4.7", level: "Intermediate", price: "SAR 149" },
-                    { title: "Professional Writing Skills", provider: "edX", duration: "6 weeks", rating: "4.4", level: "Beginner", price: "Free" },
-                    { title: "Team Collaboration Tools", provider: "Coursera", duration: "3 weeks", rating: "4.6", level: "Beginner", price: "Free" },
-                    { title: "Presentation Skills Mastery", provider: "Udemy", duration: "12 hours", rating: "4.8", level: "Intermediate", price: "SAR 179" },
-                    { title: "Customer Service Excellence", provider: "LinkedIn Learning", duration: "10 hours", rating: "4.5", level: "Beginner", price: "SAR 79/mo" },
-                    { title: "Problem Solving Techniques", provider: "Coursera", duration: "5 weeks", rating: "4.7", level: "Intermediate", price: "SAR 99" },
-                    { title: "Quality Management Systems", provider: "edX", duration: "8 weeks", rating: "4.6", level: "Advanced", price: "SAR 299" }
-                ],
-                'career-change': [
-                    { title: "Career Transition Bootcamp", provider: "Coursera", duration: "12 weeks", rating: "4.9", level: "Beginner", price: "SAR 399" },
-                    { title: "Tech Career Fundamentals", provider: "Udemy", duration: "50 hours", rating: "4.7", level: "Beginner", price: "SAR 499" },
-                    { title: "Healthcare Administration", provider: "edX", duration: "16 weeks", rating: "4.6", level: "Intermediate", price: "SAR 599" },
-                    { title: "Digital Marketing Career Path", provider: "Google Skillshop", duration: "30 hours", rating: "4.8", level: "Beginner", price: "Free" },
-                    { title: "Data Science Career Track", provider: "DataCamp", duration: "6 months", rating: "4.7", level: "Beginner", price: "SAR 199/mo" },
-                    { title: "Entrepreneurship Essentials", provider: "Coursera", duration: "8 weeks", rating: "4.5", level: "Intermediate", price: "SAR 249" },
-                    { title: "Human Resources Fundamentals", provider: "LinkedIn Learning", duration: "25 hours", rating: "4.6", level: "Beginner", price: "SAR 79/mo" },
-                    { title: "Sales Professional Training", provider: "Udemy", duration: "35 hours", rating: "4.8", level: "Intermediate", price: "SAR 299" },
-                    { title: "Supply Chain Management", provider: "edX", duration: "12 weeks", rating: "4.7", level: "Advanced", price: "SAR 399" },
-                    { title: "Renewable Energy Careers", provider: "Coursera", duration: "10 weeks", rating: "4.6", level: "Intermediate", price: "SAR 349" }
-                ],
-                'leadership': [
-                    { title: "Strategic Leadership", provider: "Coursera", duration: "8 weeks", rating: "4.9", level: "Advanced", price: "SAR 399" },
-                    { title: "Team Management Excellence", provider: "LinkedIn Learning", duration: "20 hours", rating: "4.7", level: "Intermediate", price: "SAR 79/mo" },
-                    { title: "Executive Communication", provider: "edX", duration: "6 weeks", rating: "4.8", level: "Advanced", price: "SAR 299" },
-                    { title: "Change Management", provider: "Udemy", duration: "18 hours", rating: "4.6", level: "Intermediate", price: "SAR 249" },
-                    { title: "Financial Leadership", provider: "Coursera", duration: "10 weeks", rating: "4.8", level: "Advanced", price: "SAR 449" },
-                    { title: "Innovation Management", provider: "edX", duration: "12 weeks", rating: "4.7", level: "Advanced", price: "SAR 399" },
-                    { title: "Performance Management", provider: "LinkedIn Learning", duration: "15 hours", rating: "4.5", level: "Intermediate", price: "SAR 79/mo" },
-                    { title: "Emotional Intelligence for Leaders", provider: "Coursera", duration: "4 weeks", rating: "4.8", level: "Intermediate", price: "SAR 199" },
-                    { title: "Conflict Resolution", provider: "Udemy", duration: "12 hours", rating: "4.6", level: "Intermediate", price: "SAR 179" },
-                    { title: "Organizational Psychology", provider: "edX", duration: "14 weeks", rating: "4.7", level: "Advanced", price: "SAR 499" }
-                ]
-            };
-
-            const courses = coursesByGoal[selectedGoal] || [];
-            const coursesList = document.getElementById('coursesList');
-            coursesList.innerHTML = '';
-
-            courses.forEach((course, index) => {
-                const progress = Math.floor(Math.random() * 100); // Random progress for demo
-                const courseCard = document.createElement('div');
-                courseCard.className = 'course-card';
-                courseCard.innerHTML = `
-                    <div class="course-provider">${course.provider}</div>
-                    <div class="course-title">${course.title}</div>
-                    <div class="course-meta">
-                        <span>⭐ ${course.rating}</span>
-                        <span>📅 ${course.duration}</span>
-                        <span>📊 ${course.level}</span>
-                        <span>💰 ${course.price}</span>
-                    </div>
-                    <div style="margin: 12px 0;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                            <span style="font-size: 12px; color: var(--text-secondary);">Progress</span>
-                            <span style="font-size: 12px; color: var(--text-secondary);">${progress}%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${progress}%"></div>
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-primary" onclick="enrollInCourse('${course.title}', '${course.provider}')" style="flex: 1;">
-                            ${progress > 0 ? 'Continue' : 'Enroll'}
-                        </button>
-                        <button class="btn btn-secondary" onclick="saveForLater('${course.title}')" style="padding: 8px 12px;">💾</button>
-                    </div>
-                `;
-                coursesList.appendChild(courseCard);
-            });
-
-            document.getElementById('courseRecommendations').classList.remove('hidden');
-        }
-
-        function enrollInCourse(title, provider) {
-            alert(`Enrolling in "${title}" from ${provider}!\n\n✅ In a real implementation, this would:\n• Redirect to the course platform\n• Track enrollment in user's profile\n• Add to learning dashboard\n• Send confirmation email`);
-        }
-
-        function saveForLater(title) {
-            alert(`Course "${title}" saved to your learning list!\n\n✅ Saved courses can be accessed from your dashboard anytime.`);
-        }
-
-        // CV Builder Functions
-        function updateCVPreview() {
-            const data = {
-                fullName: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                jobTitle: document.getElementById('jobTitle').value,
-                technicalSkills: document.getElementById('technicalSkills').value,
-                softSkills: document.getElementById('softSkills').value,
-                degree: document.getElementById('degree').value,
-                university: document.getElementById('university').value,
-                graduationYear: document.getElementById('graduationYear').value
-            };
-
-            // Get experience entries
-            const experiences = [];
-            document.querySelectorAll('.experience-entry').forEach(entry => {
-                const experience = {
-                    company: entry.querySelector('.company-name').value,
-                    position: entry.querySelector('.position-title').value,
-                    responsibilities: entry.querySelector('.responsibilities').value,
-                    startDate: entry.querySelector('.start-date').value,
-                    endDate: entry.querySelector('.end-date').value
-                };
-                if (experience.company || experience.position) {
-                    experiences.push(experience);
-                }
-            });
-
-            if (!data.fullName && !data.email && experiences.length === 0) {
-                document.getElementById('cvPreviewContent').innerHTML = `
-                    <div style="text-align: center; color: var(--text-muted); padding: 60px 20px;">
-                        <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
-                        <p>Start filling the form to see your CV preview</p>
-                    </div>
-                `;
-                return;
-            }
-
-            let preview = `
-                <div style="background: white; padding: 32px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
-                    <div style="text-align: center; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 3px solid var(--primary-blue);">
-                        <h1 style="color: var(--text-primary); margin-bottom: 8px; font-size: 28px;">${data.fullName || 'Your Name'}</h1>
-                        ${data.jobTitle ? `<p style="color: var(--primary-blue); font-size: 18px; font-weight: 600; margin-bottom: 8px;">${data.jobTitle}</p>` : ''}
-                        <div style="color: var(--text-secondary); font-size: 14px;">
-                            ${data.email || 'your.email@example.com'}${data.phone ? ' | ' + data.phone : ''}
-                        </div>
-                    </div>
-            `;
-
-            // Experience section
-            if (experiences.length > 0) {
-                preview += `
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text-primary); margin-bottom: 16px; font-size: 18px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">PROFESSIONAL EXPERIENCE</h3>
-                `;
-                
-                experiences.forEach(exp => {
-                    preview += `
-                        <div style="margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light);">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-                                <div>
-                                    <h4 style="color: var(--text-primary); margin-bottom: 4px;">${exp.position || 'Position Title'}</h4>
-                                    <p style="color: var(--primary-blue); font-weight: 600;">${exp.company || 'Company Name'}</p>
-                                </div>
-                                <div style="text-align: right; color: var(--text-secondary); font-size: 14px;">
-                                    ${exp.startDate ? new Date(exp.startDate).toLocaleDateString('en-US', {month: 'short', year: 'numeric'}) : 'Start'} - ${exp.endDate ? new Date(exp.endDate).toLocaleDateString('en-US', {month: 'short', year: 'numeric'}) : 'Present'}
-                                </div>
-                            </div>
-                            ${exp.responsibilities ? `<p style="color: var(--text-secondary); line-height: 1.6; margin-top: 8px;">${exp.responsibilities}</p>` : ''}
-                        </div>
-                    `;
-                });
-                
-                preview += `</div>`;
-            }
-
-            // Skills section
-            if (data.technicalSkills || data.softSkills) {
-                preview += `
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text-primary); margin-bottom: 16px; font-size: 18px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">SKILLS</h3>
-                `;
-                
-                if (data.technicalSkills) {
-                    const techSkills = data.technicalSkills.split(',').map(s => s.trim()).filter(s => s);
-                    preview += `
-                        <div style="margin-bottom: 16px;">
-                            <h4 style="color: var(--text-primary); margin-bottom: 8px;">Technical Skills</h4>
-                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                                ${techSkills.map(skill => `<span style="background: var(--primary-blue); color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px;">${skill}</span>`).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
-                
-                if (data.softSkills) {
-                    const softSkillsList = data.softSkills.split(',').map(s => s.trim()).filter(s => s);
-                    preview += `
-                        <div>
-                            <h4 style="color: var(--text-primary); margin-bottom: 8px;">Soft Skills</h4>
-                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                                ${softSkillsList.map(skill => `<span style="background: var(--primary-green); color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px;">${skill}</span>`).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
-                
-                preview += `</div>`;
-            }
-
-            // Education section
-            if (data.degree || data.university) {
-                preview += `
-                    <div style="margin-bottom: 20px;">
-                        <h3 style="color: var(--text-primary); margin-bottom: 16px; font-size: 18px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">EDUCATION</h3>
-                        <div>
-                            <h4 style="color: var(--text-primary); margin-bottom: 4px;">${data.degree || 'Degree'}</h4>
-                            <p style="color: var(--primary-blue); font-weight: 600;">${data.university || 'University'}</p>
-                            ${data.graduationYear ? `<p style="color: var(--text-secondary); font-size: 14px;">Graduated: ${data.graduationYear}</p>` : ''}
-                        </div>
-                    </div>
-                `;
-            }
-
-            preview += `</div>`;
-            document.getElementById('cvPreviewContent').innerHTML = preview;
-        }
-
-        let suggestionTimeouts = {};
-
-        function generateAISuggestions(textarea) {
-            const text = textarea.value.trim();
-            if (text.length < 10) return;
-
-            const entryIndex = Array.from(document.querySelectorAll('.responsibilities')).indexOf(textarea);
-            const suggestionsDiv = document.getElementById(`suggestions-${entryIndex}`);
-            
-            // Clear previous timeout
-            if (suggestionTimeouts[entryIndex]) {
-                clearTimeout(suggestionTimeouts[entryIndex]);
-            }
-
-            // Set new timeout
-            suggestionTimeouts[entryIndex] = setTimeout(() => {
-                const suggestions = getAIJobSuggestions(text);
-                displaySuggestions(suggestionsDiv, suggestions);
-                suggestionsDiv.classList.remove('hidden');
-            }, 2000);
-        }
-
-        function getAIJobSuggestions(text) {
-            const suggestions = [
-                "Spearheaded cross-functional initiatives that resulted in 25% improvement in operational efficiency",
-                "Collaborated with stakeholders to implement strategic solutions, driving revenue growth by 15%",
-                "Led a team of 8 professionals while maintaining 98% client satisfaction rate",
-                "Developed and executed comprehensive project plans, delivering r<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1841,5 +1532,484 @@ function generateAcademicResponse(message) {
                 'default': "That's a great question! I can help you explore any major or career path. Some popular fields in Saudi Arabia include technology, healthcare, engineering, business, and renewable energy. What specific area interests you most? I can provide detailed information about requirements, job prospects, and top universities."
             };
 
-            const lowerMessage = message
+        function generateAcademicResponse(message) {
+            const responses = {
+                'computer science': "Computer Science is an excellent choice! It's one of the most in-demand fields in Saudi Arabia, especially with Vision 2030's focus on digital transformation. You'll study programming, algorithms, AI, and software development. Top universities include KAUST, King Saud University, and KFUPM. Career prospects include software developer, data scientist, cybersecurity specialist.",
+                'medicine': "Medicine is a prestigious and rewarding field! Saudi Arabia is investing heavily in healthcare as part of Vision 2030. You'll need strong grades in biology, chemistry, and physics. The program is typically 6-7 years including internship. King Saud University, King Abdulaziz University, and Imam Abdulrahman University have excellent medical programs.",
+                'engineering': "Engineering offers many exciting specializations! Mechanical, electrical, civil, and chemical engineering are all in high demand. Saudi Arabia needs engineers for NEOM, renewable energy projects, and infrastructure development. KFUPM, KAUST, and King Saud University have top engineering programs.",
+                'business': "Business Administration opens doors to many careers! With Saudi Arabia's economic diversification, there's growing demand for business professionals in finance, marketing, and management. Consider specializing in areas like fintech, e-commerce, or international business to align with Vision 2030 goals.",
+                'default': "That's a great question! I can help you explore any major or career path. Some popular fields in Saudi Arabia include technology, healthcare, engineering, business, and renewable energy. What specific area interests you most? I can provide detailed information about requirements, job prospects, and top universities."
+            };
 
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('computer') || lowerMessage.includes('programming') || lowerMessage.includes('software')) return responses['computer science'];
+            if (lowerMessage.includes('medicine') || lowerMessage.includes('doctor') || lowerMessage.includes('medical')) return responses['medicine'];
+            if (lowerMessage.includes('engineering') || lowerMessage.includes('engineer')) return responses['engineering'];
+            if (lowerMessage.includes('business') || lowerMessage.includes('management') || lowerMessage.includes('finance')) return responses['business'];
+            
+            return responses['default'];
+        }
+
+        // Career Professional Functions
+        function handleCVUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const uploadZone = document.querySelector('.upload-zone');
+                uploadZone.innerHTML = `
+                    <div class="loading" style="margin: 0 auto 12px;"></div>
+                    <h4>Analyzing ${file.name}...</h4>
+                    <p style="color: var(--text-secondary); margin-top: 8px;">This may take a moment</p>
+                `;
+
+                setTimeout(() => {
+                    document.getElementById('cvAnalysis').classList.remove('hidden');
+                    uploadZone.innerHTML = `
+                        <div style="color: var(--primary-green); font-size: 32px; margin-bottom: 12px;">✅</div>
+                        <h4>CV Uploaded Successfully</h4>
+                        <p style="color: var(--text-secondary); margin-top: 8px;">${file.name}</p>
+                    `;
+                }, 3000);
+            }
+        }
+
+        function selectGoal(element, goal) {
+            document.querySelectorAll('.goal-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedGoal = goal;
+        }
+
+        function generateCourseRecommendations() {
+            if (!selectedGoal) {
+                alert('Please select your goal first!');
+                return;
+            }
+
+            const coursesByGoal = {
+                'better-job': [
+                    { title: "Advanced Data Analytics", provider: "Coursera", duration: "6 weeks", rating: "4.8", level: "Intermediate", price: "Free" },
+                    { title: "Digital Marketing Mastery", provider: "Udemy", duration: "25 hours", rating: "4.6", level: "Beginner", price: "SAR 299" },
+                    { title: "Cloud Computing AWS", provider: "edX", duration: "8 weeks", rating: "4.7", level: "Advanced", price: "SAR 450" },
+                    { title: "Project Management Professional", provider: "Coursera", duration: "4 months", rating: "4.9", level: "Intermediate", price: "SAR 149/mo" },
+                    { title: "Python for Data Science", provider: "DataCamp", duration: "40 hours", rating: "4.5", level: "Beginner", price: "SAR 99/mo" },
+                    { title: "UI/UX Design Fundamentals", provider: "Udemy", duration: "30 hours", rating: "4.7", level: "Beginner", price: "SAR 199" },
+                    { title: "Financial Analysis & Modeling", provider: "Coursera", duration: "10 weeks", rating: "4.8", level: "Advanced", price: "SAR 299" },
+                    { title: "Artificial Intelligence Basics", provider: "edX", duration: "12 weeks", rating: "4.6", level: "Intermediate", price: "Free" },
+                    { title: "Social Media Strategy", provider: "LinkedIn Learning", duration: "15 hours", rating: "4.4", level: "Beginner", price: "SAR 79/mo" },
+                    { title: "Cybersecurity Fundamentals", provider: "Coursera", duration: "6 months", rating: "4.7", level: "Intermediate", price: "SAR 199/mo" }
+                ],
+                'job-ready': [
+                    { title: "Advanced Excel & Data Analysis", provider: "Udemy", duration: "20 hours", rating: "4.8", level: "Intermediate", price: "SAR 199" },
+                    { title: "Communication Skills for Professionals", provider: "Coursera", duration: "4 weeks", rating: "4.6", level: "Beginner", price: "Free" },
+                    { title: "Time Management & Productivity", provider: "LinkedIn Learning", duration: "8 hours", rating: "4.5", level: "Beginner", price: "SAR 79/mo" },
+                    { title: "Industry-Specific Software Training", provider: "Udemy", duration: "15 hours", rating: "4.7", level: "Intermediate", price: "SAR 149" },
+                    { title: "Professional Writing Skills", provider: "edX", duration: "6 weeks", rating: "4.4", level: "Beginner", price: "Free" },
+                    { title: "Team Collaboration Tools", provider: "Coursera", duration: "3 weeks", rating: "4.6", level: "Beginner", price: "Free" },
+                    { title: "Presentation Skills Mastery", provider: "Udemy", duration: "12 hours", rating: "4.8", level: "Intermediate", price: "SAR 179" },
+                    { title: "Customer Service Excellence", provider: "LinkedIn Learning", duration: "10 hours", rating: "4.5", level: "Beginner", price: "SAR 79/mo" },
+                    { title: "Problem Solving Techniques", provider: "Coursera", duration: "5 weeks", rating: "4.7", level: "Intermediate", price: "SAR 99" },
+                    { title: "Quality Management Systems", provider: "edX", duration: "8 weeks", rating: "4.6", level: "Advanced", price: "SAR 299" }
+                ],
+                'career-change': [
+                    { title: "Career Transition Bootcamp", provider: "Coursera", duration: "12 weeks", rating: "4.9", level: "Beginner", price: "SAR 399" },
+                    { title: "Tech Career Fundamentals", provider: "Udemy", duration: "50 hours", rating: "4.7", level: "Beginner", price: "SAR 499" },
+                    { title: "Healthcare Administration", provider: "edX", duration: "16 weeks", rating: "4.6", level: "Intermediate", price: "SAR 599" },
+                    { title: "Digital Marketing Career Path", provider: "Google Skillshop", duration: "30 hours", rating: "4.8", level: "Beginner", price: "Free" },
+                    { title: "Data Science Career Track", provider: "DataCamp", duration: "6 months", rating: "4.7", level: "Beginner", price: "SAR 199/mo" },
+                    { title: "Entrepreneurship Essentials", provider: "Coursera", duration: "8 weeks", rating: "4.5", level: "Intermediate", price: "SAR 249" },
+                    { title: "Human Resources Fundamentals", provider: "LinkedIn Learning", duration: "25 hours", rating: "4.6", level: "Beginner", price: "SAR 79/mo" },
+                    { title: "Sales Professional Training", provider: "Udemy", duration: "35 hours", rating: "4.8", level: "Intermediate", price: "SAR 299" },
+                    { title: "Supply Chain Management", provider: "edX", duration: "12 weeks", rating: "4.7", level: "Advanced", price: "SAR 399" },
+                    { title: "Renewable Energy Careers", provider: "Coursera", duration: "10 weeks", rating: "4.6", level: "Intermediate", price: "SAR 349" }
+                ],
+                'leadership': [
+                    { title: "Strategic Leadership", provider: "Coursera", duration: "8 weeks", rating: "4.9", level: "Advanced", price: "SAR 399" },
+                    { title: "Team Management Excellence", provider: "LinkedIn Learning", duration: "20 hours", rating: "4.7", level: "Intermediate", price: "SAR 79/mo" },
+                    { title: "Executive Communication", provider: "edX", duration: "6 weeks", rating: "4.8", level: "Advanced", price: "SAR 299" },
+                    { title: "Change Management", provider: "Udemy", duration: "18 hours", rating: "4.6", level: "Intermediate", price: "SAR 249" },
+                    { title: "Financial Leadership", provider: "Coursera", duration: "10 weeks", rating: "4.8", level: "Advanced", price: "SAR 449" },
+                    { title: "Innovation Management", provider: "edX", duration: "12 weeks", rating: "4.7", level: "Advanced", price: "SAR 399" },
+                    { title: "Performance Management", provider: "LinkedIn Learning", duration: "15 hours", rating: "4.5", level: "Intermediate", price: "SAR 79/mo" },
+                    { title: "Emotional Intelligence for Leaders", provider: "Coursera", duration: "4 weeks", rating: "4.8", level: "Intermediate", price: "SAR 199" },
+                    { title: "Conflict Resolution", provider: "Udemy", duration: "12 hours", rating: "4.6", level: "Intermediate", price: "SAR 179" },
+                    { title: "Organizational Psychology", provider: "edX", duration: "14 weeks", rating: "4.7", level: "Advanced", price: "SAR 499" }
+                ]
+            };
+
+            const courses = coursesByGoal[selectedGoal] || [];
+            const coursesList = document.getElementById('coursesList');
+            coursesList.innerHTML = '';
+
+            courses.forEach((course, index) => {
+                const progress = Math.floor(Math.random() * 100); // Random progress for demo
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card';
+                courseCard.innerHTML = `
+                    <div class="course-provider">${course.provider}</div>
+                    <div class="course-title">${course.title}</div>
+                    <div class="course-meta">
+                        <span>⭐ ${course.rating}</span>
+                        <span>📅 ${course.duration}</span>
+                        <span>📊 ${course.level}</span>
+                        <span>💰 ${course.price}</span>
+                    </div>
+                    <div style="margin: 12px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                            <span style="font-size: 12px; color: var(--text-secondary);">Progress</span>
+                            <span style="font-size: 12px; color: var(--text-secondary);">${progress}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-primary" onclick="enrollInCourse('${course.title}', '${course.provider}')" style="flex: 1;">
+                            ${progress > 0 ? 'Continue' : 'Enroll'}
+                        </button>
+                        <button class="btn btn-secondary" onclick="saveForLater('${course.title}')" style="padding: 8px 12px;">💾</button>
+                    </div>
+                `;
+                coursesList.appendChild(courseCard);
+            });
+
+            document.getElementById('courseRecommendations').classList.remove('hidden');
+        }
+
+        function enrollInCourse(title, provider) {
+            alert(`Enrolling in "${title}" from ${provider}!\n\n✅ In a real implementation, this would:\n• Redirect to the course platform\n• Track enrollment in user's profile\n• Add to learning dashboard\n• Send confirmation email`);
+        }
+
+        function saveForLater(title) {
+            alert(`Course "${title}" saved to your learning list!\n\n✅ Saved courses can be accessed from your dashboard anytime.`);
+        }
+
+        // CV Builder Functions
+        function updateCVPreview() {
+            const data = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                jobTitle: document.getElementById('jobTitle').value,
+                technicalSkills: document.getElementById('technicalSkills').value,
+                softSkills: document.getElementById('softSkills').value,
+                degree: document.getElementById('degree').value,
+                university: document.getElementById('university').value,
+                graduationYear: document.getElementById('graduationYear').value
+            };
+
+            // Get experience entries
+            const experiences = [];
+            document.querySelectorAll('.experience-entry').forEach(entry => {
+                const experience = {
+                    company: entry.querySelector('.company-name').value,
+                    position: entry.querySelector('.position-title').value,
+                    responsibilities: entry.querySelector('.responsibilities').value,
+                    startDate: entry.querySelector('.start-date').value,
+                    endDate: entry.querySelector('.end-date').value
+                };
+                if (experience.company || experience.position) {
+                    experiences.push(experience);
+                }
+            });
+
+            if (!data.fullName && !data.email && experiences.length === 0) {
+                document.getElementById('cvPreviewContent').innerHTML = `
+                    <div style="text-align: center; color: var(--text-muted); padding: 60px 20px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
+                        <p>Start filling the form to see your CV preview</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let preview = `
+                <div style="background: white; padding: 32px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+                    <div style="text-align: center; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 3px solid var(--primary-blue);">
+                        <h1 style="color: var(--text-primary); margin-bottom: 8px; font-size: 28px;">${data.fullName || 'Your Name'}</h1>
+                        ${data.jobTitle ? `<p style="color: var(--primary-blue); font-size: 18px; font-weight: 600; margin-bottom: 8px;">${data.jobTitle}</p>` : ''}
+                        <div style="color: var(--text-secondary); font-size: 14px;">
+                            ${data.email || 'your.email@example.com'}${data.phone ? ' | ' + data.phone : ''}
+                        </div>
+                    </div>
+            `;
+
+            // Experience section
+            if (experiences.length > 0) {
+                preview += `
+                    <div style="margin-bottom: 32px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 16px; font-size: 18px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">PROFESSIONAL EXPERIENCE</h3>
+                `;
+                
+                experiences.forEach(exp => {
+                    preview += `
+                        <div style="margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light);">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                <div>
+                                    <h4 style="color: var(--text-primary); margin-bottom: 4px;">${exp.position || 'Position Title'}</h4>
+                                    <p style="color: var(--primary-blue); font-weight: 600;">${exp.company || 'Company Name'}</p>
+                                </div>
+                                <div style="text-align: right; color: var(--text-secondary); font-size: 14px;">
+                                    ${exp.startDate ? new Date(exp.startDate).toLocaleDateString('en-US', {month: 'short', year: 'numeric'}) : 'Start'} - ${exp.endDate ? new Date(exp.endDate).toLocaleDateString('en-US', {month: 'short', year: 'numeric'}) : 'Present'}
+                                </div>
+                            </div>
+                            ${exp.responsibilities ? `<p style="color: var(--text-secondary); line-height: 1.6; margin-top: 8px;">${exp.responsibilities}</p>` : ''}
+                        </div>
+                    `;
+                });
+                
+                preview += `</div>`;
+            }
+
+            // Skills section
+            if (data.technicalSkills || data.softSkills) {
+                preview += `
+                    <div style="margin-bottom: 32px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 16px; font-size: 18px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">SKILLS</h3>
+                `;
+                
+                if (data.technicalSkills) {
+                    const techSkills = data.technicalSkills.split(',').map(s => s.trim()).filter(s => s);
+                    preview += `
+                        <div style="margin-bottom: 16px;">
+                            <h4 style="color: var(--text-primary); margin-bottom: 8px;">Technical Skills</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                ${techSkills.map(skill => `<span style="background: var(--primary-blue); color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px;">${skill}</span>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (data.softSkills) {
+                    const softSkillsList = data.softSkills.split(',').map(s => s.trim()).filter(s => s);
+                    preview += `
+                        <div>
+                            <h4 style="color: var(--text-primary); margin-bottom: 8px;">Soft Skills</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                ${softSkillsList.map(skill => `<span style="background: var(--primary-green); color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px;">${skill}</span>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                preview += `</div>`;
+            }
+
+            // Education section
+            if (data.degree || data.university) {
+                preview += `
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 16px; font-size: 18px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">EDUCATION</h3>
+                        <div>
+                            <h4 style="color: var(--text-primary); margin-bottom: 4px;">${data.degree || 'Degree'}</h4>
+                            <p style="color: var(--primary-blue); font-weight: 600;">${data.university || 'University'}</p>
+                            ${data.graduationYear ? `<p style="color: var(--text-secondary); font-size: 14px;">Graduated: ${data.graduationYear}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            preview += `</div>`;
+            document.getElementById('cvPreviewContent').innerHTML = preview;
+        }
+
+        let suggestionTimeouts = {};
+
+        function generateAISuggestions(textarea) {
+            const text = textarea.value.trim();
+            if (text.length < 10) return;
+
+            const entryIndex = Array.from(document.querySelectorAll('.responsibilities')).indexOf(textarea);
+            const suggestionsDiv = document.getElementById(`suggestions-${entryIndex}`);
+            
+            // Clear previous timeout
+            if (suggestionTimeouts[entryIndex]) {
+                clearTimeout(suggestionTimeouts[entryIndex]);
+            }
+
+            // Set new timeout
+            suggestionTimeouts[entryIndex] = setTimeout(() => {
+                const suggestions = getAIJobSuggestions(text);
+                displaySuggestions(suggestionsDiv, suggestions);
+                suggestionsDiv.classList.remove('hidden');
+            }, 2000);
+        }
+
+        function getAIJobSuggestions(text) {
+            const suggestions = [
+                "Spearheaded cross-functional initiatives that resulted in 25% improvement in operational efficiency",
+                "Collaborated with stakeholders to implement strategic solutions, driving revenue growth by 15%",
+                "Led a team of 8 professionals while maintaining 98% client satisfaction rate",
+                "Developed and executed comprehensive project plans, delivering results ahead of schedule",
+                "Optimized workflows and processes, reducing costs by 20% while improving quality metrics"
+            ];
+            
+            // Return 3 random suggestions
+            return suggestions.sort(() => 0.5 - Math.random()).slice(0, 3);
+        }
+
+        function displaySuggestions(suggestionsDiv, suggestions) {
+            const suggestionsList = suggestionsDiv.querySelector('.suggestions-list');
+            suggestionsList.innerHTML = '';
+            
+            suggestions.forEach(suggestion => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+                suggestionItem.textContent = suggestion;
+                suggestionItem.onclick = () => applySuggestion(suggestionItem, suggestion);
+                suggestionsList.appendChild(suggestionItem);
+            });
+        }
+
+        function applySuggestion(element, suggestion) {
+            const textarea = element.closest('.form-group').querySelector('.responsibilities');
+            textarea.value = suggestion;
+            updateCVPreview();
+            element.closest('.ai-suggestions').classList.add('hidden');
+        }
+
+        function addExperienceEntry() {
+            const experienceEntries = document.getElementById('experienceEntries');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'experience-entry';
+            newEntry.style.marginTop = '30px';
+            newEntry.style.paddingTop = '20px';
+            newEntry.style.borderTop = '1px solid var(--border-light)';
+            
+            newEntry.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">Company Name</label>
+                    <input type="text" class="form-input company-name" placeholder="Company Name" oninput="updateCVPreview()">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Position/Title</label>
+                    <input type="text" class="form-input position-title" placeholder="Your Job Title" oninput="updateCVPreview()">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Key Responsibilities</label>
+                    <textarea class="form-input responsibilities" rows="3" placeholder="Describe your main responsibilities and achievements..." oninput="updateCVPreview(); generateAISuggestions(this)"></textarea>
+                    <div class="ai-suggestions hidden" id="suggestions-${experienceCount}">
+                        <h4 style="color: var(--primary-green); font-size: 14px; margin-bottom: 8px;">🤖 AI Suggestions</h4>
+                        <div class="suggestions-list"></div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label class="form-label">Start Date</label>
+                        <input type="month" class="form-input start-date" oninput="updateCVPreview()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Date</label>
+                        <input type="month" class="form-input end-date" oninput="updateCVPreview()">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="removeExperienceEntry(this)" style="background: var(--primary-red); color: white; margin-top: 12px;">Remove This Position</button>
+            `;
+            
+            experienceEntries.appendChild(newEntry);
+            experienceCount++;
+        }
+
+        function removeExperienceEntry(button) {
+            button.closest('.experience-entry').remove();
+            updateCVPreview();
+        }
+
+        function optimizeWithAI() {
+            alert('🤖 AI Optimization Complete!\n\n✅ Enhanced job descriptions with stronger action verbs\n✅ Improved keyword density for ATS compatibility\n✅ Optimized formatting for Saudi job market\n✅ Added quantifiable achievements\n\nYour CV is now 23% more likely to pass initial screening!');
+        }
+
+        function downloadCV() {
+            const data = {
+                fullName: document.getElementById('fullName').value,
+                jobTitle: document.getElementById('jobTitle').value
+            };
+
+            if (!data.fullName) {
+                alert('Please fill in your basic information before downloading.');
+                return;
+            }
+
+            alert(`📄 Downloading CV for ${data.fullName}!\n\n✅ In a real implementation, this would:\n• Generate a professional PDF\n• Include ATS-optimized formatting\n• Add Saudi market-specific elements\n• Provide multiple template options\n\nFile: ${data.fullName.replace(/\s+/g, '_')}_CV.pdf`);
+        }
+
+        // Chat Functions
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addChatMessage(message, 'user');
+                input.value = '';
+                
+                // Show typing indicator
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message bot';
+                typingDiv.innerHTML = `<div style="display: flex; align-items: center; gap: 8px;"><div class="loading" style="width: 16px; height: 16px;"></div>AI is thinking...</div>`;
+                document.getElementById('chatMessages').appendChild(typingDiv);
+                
+                setTimeout(() => {
+                    typingDiv.remove();
+                    const response = generateChatResponse(message);
+                    addChatMessage(response, 'bot');
+                }, 1500);
+            }
+        }
+
+        function addChatMessage(text, sender) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.innerHTML = text;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function generateChatResponse(message) {
+            const responses = {
+                'career': "I can help you explore exciting career opportunities in Saudi Arabia! With Vision 2030, there's growing demand in technology, healthcare, renewable energy, and tourism. What field interests you most?",
+                'skills': "Great question! The most in-demand skills in Saudi Arabia include digital literacy, data analysis, project management, Arabic/English proficiency, and AI/automation knowledge. Based on Vision 2030, I'd also recommend skills in sustainability, fintech, and cultural heritage preservation.",
+                'courses': "I'd love to recommend courses! Are you looking to upskill in your current field or explore something new? Popular areas include data science, digital marketing, project management, and renewable energy. What's your goal?",
+                'cv': "I can definitely help optimize your CV! Key tips for the Saudi market: use a clean, ATS-friendly format, include quantifiable achievements, highlight relevant certifications, and ensure your contact info is prominent. Would you like specific advice for your industry?",
+                'salary': "💰 Salary expectations vary by sector and experience. Technology and healthcare typically offer the highest compensation. Entry-level: SAR 4,000-8,000, Mid-level: SAR 8,000-15,000, Senior: SAR 15,000+. Would you like sector-specific information?",
+                'vision2030': "Vision 2030 is creating incredible opportunities! Key focus areas include NEOM, digital transformation, tourism development (Red Sea Project), renewable energy, and entertainment. These sectors are actively hiring and offer great career growth potential.",
+                'remote': "🏠 Remote work is becoming more accepted in Saudi Arabia, especially in tech, consulting, and digital marketing. Many Vision 2030 companies offer hybrid arrangements. International remote work is also growing in sectors like software development and digital services.",
+                'default': "I'm here to help with your career development! I can assist with career planning, skill recommendations, course suggestions, CV optimization, salary insights, and Saudi job market trends. What would you like to explore?"
+            };
+
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('career') || lowerMessage.includes('job')) return responses.career;
+            if (lowerMessage.includes('skill') || lowerMessage.includes('learn')) return responses.skills;
+            if (lowerMessage.includes('course') || lowerMessage.includes('training')) return responses.courses;
+            if (lowerMessage.includes('cv') || lowerMessage.includes('resume')) return responses.cv;
+            if (lowerMessage.includes('salary') || lowerMessage.includes('pay') || lowerMessage.includes('money')) return responses.salary;
+            if (lowerMessage.includes('vision') || lowerMessage.includes('2030')) return responses.vision2030;
+            if (lowerMessage.includes('remote') || lowerMessage.includes('work from home')) return responses.remote;
+            if (lowerMessage.includes('thank') || lowerMessage.includes('شكرا')) return "You're very welcome! I'm always here to help with your career journey. Feel free to ask me anything else!";
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('سلام')) return "Hello! Welcome to Ana_Qadha! I'm your AI career assistant. I can help you with career planning, skills development, course recommendations, and job market insights. How can I assist you today?";
+            
+            return responses.default;
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Ana_Qadha platform loaded successfully!');
+        });
+    </script>
+</body>
+</html>
