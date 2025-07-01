@@ -2149,5 +2149,18 @@
             
             // Use the original response system for other queries
             return generateResponse(message);
+            
         }
-        
+        <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    console.log('Page loaded');
+
+    // This helps confirm your nav links are clickable
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        console.log('Nav link clicked:', link.textContent);
+      });
+    });
+  });
+</script>
+
