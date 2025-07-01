@@ -815,20 +815,20 @@
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
-            <a href="#" class="logo" onclick="showPage('home')">
+            <a href="javascript:void(0)" class="logo" onclick="showPage('home')">>
                 <div class="logo-icon">AQ</div>
                 Ana_Qadha
             </a>
             <ul class="nav-links">
-                <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
-                <li><a href="#" onclick="showPage('dashboard')">Dashboard</a></li>
-                <li><a href="#" onclick="showPage('cv-builder')">CV Builder</a></li>
-                <li><a href="#" onclick="showPage('assessment')">Assessment</a></li>
-                <li><a href="#" onclick="showPage('chat')">AI Assistant</a></li>
+                <li><a href="javascript:void(0)" onclick="showPage('home')" class="active">Home</a></li>
+                <li><a href="javascript:void(0)" onclick="showPage('dashboard')">Dashboard</a></li>
+                <li><a href="javascript:void(0)" onclick="showPage('cv-builder')">CV Builder</a></li>
+                <li><a href="javascript:void(0)" onclick="showPage('assessment')">Assessment</a></li>
+                <li><a href="javascript:void(0)" onclick="showPage('chat')">AI Assistant</a></li>
             </ul>
             <div class="auth-section">
-                <a href="#" class="btn btn-ghost" onclick="openModal('login')">Sign in</a>
-                <a href="#" class="btn btn-primary" onclick="openModal('signup')">Get started</a>
+                <a href="javascript:void(0)" class="btn btn-ghost" onclick="openModal('login')">Sign in</a>
+                <a href="javascript:void(0)" class="btn btn-primary" onclick="openModal('signup')">Get started</a>
             </div>
         </div>
     </nav>
@@ -846,8 +846,8 @@
                         Transform your career journey with AI-powered guidance aligned with Vision 2030.
                     </p>
                     <div class="hero-actions">
-                        <a href="#" class="btn btn-primary" onclick="openModal('signup')">Start your journey</a>
-                        <a href="#" class="btn btn-secondary" onclick="showPage('assessment')">Take assessment</a>
+                        <a href="javascript:void(0)" class="btn btn-primary" onclick="openModal('signup')">Start your journey</a>
+                        <a href="javascript:void(0)" class="btn btn-secondary" onclick="showPage('assessment')">Take assessment</a>
                     </div>
                 </section>
 
@@ -982,8 +982,8 @@
                         <h2 style="color: white; font-size: 32px; margin-bottom: 16px;">Ready to transform your career?</h2>
                         <p style="font-size: 18px; margin-bottom: 32px; opacity: 0.9;">Join thousands of Saudi professionals advancing their careers with Ana_Qadha</p>
                         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                            <a href="#" class="btn" style="background: white; color: var(--primary-blue); padding: 12px 24px;" onclick="openModal('signup')">Start free assessment</a>
-                            <a href="#" class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 12px 24px;" onclick="showPage('dashboard')">Explore platform</a>
+                            <a href="javascript:void(0)" class="btn" style="background: white; color: var(--primary-blue); padding: 12px 24px;" onclick="openModal('signup')">Start free assessment</a>
+                            <a href="javascript:void(0)" class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 12px 24px;" onclick="showPage('dashboard')">Explore platform</a>
                         </div>
                     </div>
                 </section>
@@ -1316,7 +1316,7 @@
                 <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
             <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
-                Don't have an account? <a href="#" onclick="closeModal('login'); openModal('signup');" style="color: var(--primary-blue);">Sign up</a>
+                Don't have an account? <a href="javascript:void(0)" onclick="closeModal('login'); openModal('signup');" style="color: var(--primary-blue);">Sign up</a>
             </p>
         </div>
     </div>
@@ -1351,7 +1351,7 @@
                 <button type="submit" class="btn btn-primary">Create account</button>
             </form>
             <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
-                Already have an account? <a href="#" onclick="closeModal('signup'); openModal('login');" style="color: var(--primary-blue);">Sign in</a>
+                Already have an account? <a href="javascript:void(0)" onclick="closeModal('signup'); openModal('login');" style="color: var(--primary-blue);">Sign in</a>
             </p>
         </div>
     </div>
@@ -1363,18 +1363,35 @@
 
         // Navigation
         function showPage(pageId) {
+            console.log('Switching to page:', pageId); // Debug log
+            
+            // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
             
-            document.getElementById(pageId).classList.add('active');
+            // Show the selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                console.log('Page activated:', pageId); // Debug log
+            } else {
+                console.error('Page not found:', pageId); // Debug log
+            }
             
+            // Update navigation active state
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
             });
             
-            const activeLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
-            if (activeLink) activeLink.classList.add('active');
+            // Find and activate the correct nav link
+            const activeLink = document.querySelector(`[onclick*="showPage('${pageId}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Scroll to top when switching pages
+            window.scrollTo(0, 0);
         }
 
         // Modals
@@ -1420,8 +1437,8 @@
         function logout() {
             currentUser = null;
             document.querySelector('.auth-section').innerHTML = `
-                <a href="#" class="btn btn-ghost" onclick="openModal('login')">Sign in</a>
-                <a href="#" class="btn btn-primary" onclick="openModal('signup')">Get started</a>
+                <a href="javascript:void(0)" class="btn btn-ghost" onclick="openModal('login')">Sign in</a>
+                <a href="javascript:void(0)" class="btn btn-primary" onclick="openModal('signup')">Get started</a>
             `;
             showPage('home');
         }
