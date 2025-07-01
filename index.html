@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ana_Qadha - Empowering Saudi Workforce</title>
+    <title>Ana_Qadha | Professional Development Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-blue: #1E88E5;
+            --primary-red: #E53E3E;
+            --primary-yellow: #FDD835;
+            --primary-green: #66BB6A;
+            --primary-purple: #AB47BC;
+            
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-muted: #999999;
+            --border-light: #e6e6e6;
+            --border-medium: #d0d0d0;
+            --background-primary: #ffffff;
+            --background-secondary: #fafafa;
+            --background-tertiary: #f5f5f5;
+            
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,421 +38,726 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f4c3a 0%, #1e7355 50%, #2d8f5f 100%);
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Navigation */
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        .nav {
             position: fixed;
-            width: 100%;
             top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
             z-index: 1000;
+            padding: 0;
         }
 
         .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #0f4c3a;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 4px;
         }
 
         .nav-links a {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
             text-decoration: none;
-            color: #333;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 14px;
+            transition: all 0.2s ease;
         }
 
-        .nav-links a:hover, .nav-links a.active {
-            color: #1e7355;
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--background-tertiary);
+            color: var(--text-primary);
         }
 
-        .auth-buttons {
+        .auth-section {
             display: flex;
-            gap: 1rem;
+            align-items: center;
+            gap: 12px;
         }
 
         .btn {
-            padding: 0.7rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 14px;
             text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
-            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            background: var(--background-tertiary);
+            color: var(--text-primary);
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, #1e7355, #2d8f5f);
+            background: var(--primary-blue);
             color: white;
         }
 
+        .btn-primary:hover {
+            background: #1976D2;
+        }
+
         .btn-secondary {
-            background: transparent;
-            color: #1e7355;
-            border: 2px solid #1e7355;
+            background: var(--background-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .btn-secondary:hover {
+            border-color: var(--border-medium);
         }
 
-        /* Main Content */
-        main {
-            margin-top: 80px;
-            min-height: 100vh;
+        /* Main Layout */
+        .main {
+            margin-top: 64px;
         }
 
         .page {
             display: none;
-            padding: 2rem 0;
         }
 
         .page.active {
             display: block;
         }
 
-        /* Welcome Page */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-sm {
+            padding: 40px 0;
+        }
+
+        /* Hero Section */
         .hero {
+            padding: 120px 0 80px;
             text-align: center;
-            padding: 4rem 0;
-            color: white;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease-out;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease-out 0.2s both;
+        .hero .subtitle {
+            font-size: 24px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-weight: 400;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
+        .hero .description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.7;
         }
 
-        .feature-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 15px;
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-actions .btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: var(--radius-md);
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            animation: fadeInUp 1s ease-out;
+            margin-bottom: 64px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
+        .section-header h2 {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
         }
 
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
-        .feature-card h3 {
-            color: #0f4c3a;
-            margin-bottom: 1rem;
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
         }
 
-        /* Dashboard */
-        .dashboard {
-            background: rgba(255, 255, 255, 0.95);
-            margin: 2rem 0;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .card {
+            background: var(--background-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.2s ease;
         }
 
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+        .card:hover {
+            border-color: var(--border-medium);
+            box-shadow: var(--shadow-md);
         }
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #1e7355, #2d8f5f);
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 20px;
+            margin-bottom: 20px;
             color: white;
-            font-weight: bold;
         }
 
-        .upload-section {
-            border: 2px dashed #1e7355;
-            border-radius: 10px;
-            padding: 3rem;
+        .card:nth-child(3n+1) .card-icon {
+            background: var(--primary-blue);
+        }
+
+        .card:nth-child(3n+2) .card-icon {
+            background: var(--primary-green);
+        }
+
+        .card:nth-child(3n+3) .card-icon {
+            background: var(--primary-red);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Content Placeholder */
+        .content-placeholder {
+            background: var(--background-secondary);
+            border: 2px dashed var(--border-medium);
+            border-radius: var(--radius-lg);
+            padding: 48px 24px;
             text-align: center;
-            margin: 2rem 0;
-            transition: all 0.3s;
+            margin: 32px 0;
         }
 
-        .upload-section:hover {
-            border-color: #2d8f5f;
-            background: rgba(30, 115, 85, 0.05);
+        .content-placeholder h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
         }
 
-        .upload-section.dragover {
-            border-color: #2d8f5f;
-            background: rgba(30, 115, 85, 0.1);
+        .content-placeholder p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
         }
 
-        .progress-section {
+        .content-placeholder ul {
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+            color: var(--text-muted);
+        }
+
+        /* Dashboard */
+        .dashboard-card {
+            background: var(--background-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .dashboard-content {
+            padding: 32px;
+        }
+
+        .upload-zone {
+            border: 2px dashed var(--primary-blue);
+            border-radius: var(--radius-lg);
+            padding: 48px 24px;
+            text-align: center;
+            background: rgba(30, 136, 229, 0.02);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--primary-purple);
+            background: rgba(171, 71, 188, 0.02);
+        }
+
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Progress Cards */
+        .progress-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
         }
 
         .progress-card {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid #1e7355;
+            background: var(--background-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .progress-card:hover {
+            border-color: var(--border-medium);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .progress-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .progress-percentage {
+            font-size: 14px;
+            color: var(--text-muted);
         }
 
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #e9ecef;
+            background: var(--background-tertiary);
             border-radius: 4px;
             overflow: hidden;
-            margin: 1rem 0;
+            margin-bottom: 12px;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(45deg, #1e7355, #2d8f5f);
-            transition: width 0.3s;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .progress-card:nth-child(1) .progress-fill {
+            background: var(--primary-blue);
+        }
+
+        .progress-card:nth-child(2) .progress-fill {
+            background: var(--primary-green);
+        }
+
+        .progress-card:nth-child(3) .progress-fill {
+            background: var(--primary-red);
         }
 
         /* Chat Interface */
         .chat-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
+            background: var(--background-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
             height: 600px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
         .chat-header {
-            background: linear-gradient(45deg, #1e7355, #2d8f5f);
-            color: white;
-            padding: 1rem;
-            border-radius: 15px 15px 0 0;
+            background: var(--background-secondary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 16px 24px;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 12px;
+        }
+
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
         }
 
         .chat-messages {
             flex: 1;
-            padding: 1rem;
+            padding: 24px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 16px;
         }
 
         .message {
             max-width: 80%;
-            padding: 1rem;
-            border-radius: 15px;
-            animation: fadeIn 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
         }
 
         .message.user {
-            background: #e3f2fd;
             align-self: flex-end;
-            border-bottom-right-radius: 5px;
         }
 
-        .message.bot {
-            background: #f1f8e9;
-            align-self: flex-start;
-            border-bottom-left-radius: 5px;
+        .message-content {
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .message.bot .message-content {
+            background: var(--background-secondary);
+            color: var(--text-primary);
+        }
+
+        .chat-input-container {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 12px;
         }
 
         .chat-input {
-            display: flex;
-            padding: 1rem;
-            gap: 1rem;
-            border-top: 1px solid #eee;
-        }
-
-        .chat-input input {
             flex: 1;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 25px;
+            padding: 12px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
             outline: none;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
         }
 
-        .chat-input input:focus {
-            border-color: #1e7355;
+        .chat-input:focus {
+            border-color: var(--primary-blue);
         }
 
         /* CV Builder */
         .cv-builder {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            gap: 32px;
+            background: var(--background-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 32px;
         }
 
         .cv-form {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 20px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 6px;
         }
 
-        .form-group label {
-            font-weight: 600;
-            color: #0f4c3a;
+        .form-label {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-primary);
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+        .form-input {
+            padding: 12px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
             outline: none;
-            transition: border-color 0.3s;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+            font-family: inherit;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: #1e7355;
+        .form-input:focus {
+            border-color: var(--primary-blue);
         }
 
         .cv-preview {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            height: fit-content;
+            background: var(--background-secondary);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            min-height: 500px;
         }
 
         /* Assessment */
-        .assessment-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 1rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .assessment-container {
+            background: var(--background-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin: 32px 0;
         }
 
-        .question {
-            margin-bottom: 1.5rem;
+        .question-block {
+            margin-bottom: 40px;
         }
 
-        .question h3 {
-            color: #0f4c3a;
-            margin-bottom: 1rem;
+        .question-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
         }
 
-        .options {
+        .options-list {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 12px;
         }
 
         .option {
-            padding: 0.8rem;
-            background: #f8f9fa;
-            border: 2px solid transparent;
-            border-radius: 8px;
+            padding: 16px 20px;
+            background: var(--background-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
         }
 
         .option:hover {
-            background: #e9ecef;
+            border-color: var(--primary-blue);
+            background: rgba(30, 136, 229, 0.02);
         }
 
         .option.selected {
-            border-color: #1e7355;
-            background: rgba(30, 115, 85, 0.1);
+            border-color: var(--primary-blue);
+            background: rgba(30, 136, 229, 0.05);
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .option-icon {
+            font-size: 20px;
+            margin-top: 2px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .option-text h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .option-text p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: var(--background-primary);
+            max-width: 400px;
+            width: 90%;
+            margin: 10% auto;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--background-secondary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--background-tertiary);
+            color: var(--text-primary);
+        }
+
+        .modal h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .modal .form-group {
+            margin-bottom: 20px;
+        }
+
+        .modal .btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+        }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-light);
+            border-radius: 50%;
+            border-top-color: var(--primary-blue);
+            animation: spin 1s linear infinite;
         }
 
         /* Responsive */
@@ -436,230 +767,342 @@
             }
             
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 40px;
             }
             
-            .features-grid {
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cards-grid {
                 grid-template-columns: 1fr;
             }
             
             .cv-builder {
                 grid-template-columns: 1fr;
             }
-
+            
             .dashboard-header {
                 flex-direction: column;
-                gap: 1rem;
+                text-align: center;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .section {
+                padding: 60px 0;
             }
         }
 
-        /* Loading */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(30, 115, 85, 0.3);
-            border-radius: 50%;
-            border-top-color: #1e7355;
-            animation: spin 1s ease-in-out infinite;
-        }
-
+        /* Animations */
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 2rem;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            animation: fadeInUp 0.3s ease-out;
-        }
-
-        .close {
-            position: absolute;
-            right: 1rem;
-            top: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-        }
-
-        .close:hover {
-            color: #000;
-        }
+        /* Utilities */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .mb-4 { margin-bottom: 24px; }
+        .mt-4 { margin-top: 24px; }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
+    <nav class="nav">
         <div class="nav-container">
-            <a href="#" class="logo" onclick="showPage('welcome')">Ana_Qadha</a>
+            <a href="#" class="logo" onclick="showPage('home')">
+                <div class="logo-icon">AQ</div>
+                Ana_Qadha
+            </a>
             <ul class="nav-links">
-                <li><a href="#" onclick="showPage('welcome')" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
                 <li><a href="#" onclick="showPage('dashboard')">Dashboard</a></li>
                 <li><a href="#" onclick="showPage('cv-builder')">CV Builder</a></li>
                 <li><a href="#" onclick="showPage('assessment')">Assessment</a></li>
                 <li><a href="#" onclick="showPage('chat')">AI Assistant</a></li>
             </ul>
-            <div class="auth-buttons">
-                <a href="#" class="btn btn-secondary" onclick="openModal('login')">Login</a>
-                <a href="#" class="btn btn-primary" onclick="openModal('signup')">Sign Up</a>
+            <div class="auth-section">
+                <a href="#" class="btn btn-ghost" onclick="openModal('login')">Sign in</a>
+                <a href="#" class="btn btn-primary" onclick="openModal('signup')">Get started</a>
             </div>
         </div>
     </nav>
 
-    <main>
-        <!-- Welcome Page -->
-        <div class="page active" id="welcome">
-            <section class="hero">
-                <div class="container">
-                    <h1>أنا قادحة - Ana_Qadha</h1>
-                    <p>Empowering the Saudi workforce through intelligent upskilling and reskilling</p>
-                    <a href="#" class="btn btn-primary" onclick="openModal('signup')" style="font-size: 1.2rem; padding: 1rem 2rem;">Start Your Journey</a>
-                </div>
-            </section>
+    <main class="main">
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <div class="container">
+                <!-- Hero Section -->
+                <section class="hero">
+                    <h1>Ana_Qadha</h1>
+                    <div class="subtitle">Professional Development Platform</div>
+                    <p class="description">
+                        Empowering the Saudi workforce through intelligent upskilling and reskilling. 
+                        Transform your career journey with AI-powered guidance aligned with Vision 2030.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#" class="btn btn-primary" onclick="openModal('signup')">Start your journey</a>
+                        <a href="#" class="btn btn-secondary" onclick="showPage('assessment')">Take assessment</a>
+                    </div>
+                </section>
 
-            <section class="container">
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <span class="feature-icon">🎓</span>
-                        <h3>High School Students</h3>
-                        <p>Discover your ideal career path with AI-powered assessments and personalized guidance aligned with Saudi Vision 2030.</p>
+                <!-- Vision 2030 Section -->
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>Aligned with Saudi Vision 2030</h2>
+                        <p>Supporting the Kingdom's transformation through strategic workforce development and human capital programs.</p>
                     </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🚀</span>
-                        <h3>Early Career Professionals</h3>
-                        <p>Build essential work competencies and skills needed to excel in today's competitive job market.</p>
+                    <div class="content-placeholder">
+                        <h3>Vision 2030 Alignment Content</h3>
+                        <p>Add your specific content about how Ana_Qladha supports:</p>
+                        <ul>
+                            <li>Human Capital Development Program objectives</li>
+                            <li>Economic diversification and new sector growth</li>
+                            <li>Digital transformation initiatives</li>
+                            <li>Quality of life improvements through career advancement</li>
+                            <li>National skills development and training programs</li>
+                        </ul>
                     </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">📈</span>
-                        <h3>Mid-Career Scaling</h3>
-                        <p>Take your career to the next level with advanced courses and leadership development programs.</p>
-                    </div>
-                </div>
+                </section>
 
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <span class="feature-icon">🤖</span>
-                        <h3>AI-Powered Recommendations</h3>
-                        <p>Get personalized course suggestions from Coursera, Udemy, and other top MOOCs based on your goals.</p>
+                <!-- Target Audiences -->
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>Designed for every career stage</h2>
+                        <p>Tailored solutions that grow with you throughout your professional journey.</p>
                     </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">📄</span>
-                        <h3>Smart CV Builder</h3>
-                        <p>Create professional CVs with AI assistance and industry-specific templates.</p>
+                    <div class="cards-grid">
+                        <div class="card">
+                            <div class="card-icon">🎓</div>
+                            <h3>High School Students</h3>
+                            <p>Discover your ideal career path with AI-powered assessments and guidance aligned with emerging Saudi industries and future job opportunities.</p>
+                            <div class="content-placeholder mt-4">
+                                <p>Add specific high school content:</p>
+                                <ul>
+                                    <li>Career exploration tools and industry insights</li>
+                                    <li>University pathway recommendations</li>
+                                    <li>Essential skills development programs</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">🚀</div>
+                            <h3>Early Career Professionals</h3>
+                            <p>Build essential competencies and accelerate your professional growth with industry-relevant courses and structured learning paths.</p>
+                            <div class="content-placeholder mt-4">
+                                <p>Add early career content:</p>
+                                <ul>
+                                    <li>Professional skill building programs</li>
+                                    <li>Industry certifications and credentials</li>
+                                    <li>Career advancement planning tools</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">📈</div>
+                            <h3>Mid-Career Scaling</h3>
+                            <p>Transform your expertise and advance to leadership roles with strategic thinking development and executive training programs.</p>
+                            <div class="content-placeholder mt-4">
+                                <p>Add mid-career content:</p>
+                                <ul>
+                                    <li>Leadership development courses</li>
+                                    <li>Strategic thinking and management training</li>
+                                    <li>Executive coaching and mentorship</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🎯</span>
-                        <h3>Skills Assessment</h3>
-                        <p>Take fun assessments to discover your strengths and areas for improvement.</p>
+                </section>
+
+                <!-- Platform Features -->
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>AI-powered career development</h2>
+                        <p>Advanced technology meets personalized learning for optimal career outcomes in the Saudi market.</p>
                     </div>
-                </div>
-            </section>
+                    <div class="cards-grid">
+                        <div class="card">
+                            <div class="card-icon">🤖</div>
+                            <h3>Smart Career Matching</h3>
+                            <p>AI analyzes your skills, interests, and market trends to recommend personalized career paths and learning opportunities.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">📊</div>
+                            <h3>Skills Gap Analysis</h3>
+                            <p>Identify exactly what skills you need to reach your goals with detailed analysis and actionable improvement plans.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">🎯</div>
+                            <h3>Curated Learning Paths</h3>
+                            <p>Access courses from leading platforms, carefully selected and tailored to Saudi market needs and industry demands.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        <h3>Additional Platform Features</h3>
+                        <p>Describe your platform's unique capabilities in detail:</p>
+                        <ul>
+                            <li>AI-powered CV optimization and ATS compatibility</li>
+                            <li>Real-time job market insights and salary benchmarking</li>
+                            <li>Mentorship matching with industry professionals</li>
+                            <li>Progress tracking with achievement certification</li>
+                            <li>Integration with Coursera, Udemy, and other MOOCs</li>
+                            <li>Bilingual support (Arabic and English)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Success Stories -->
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>Success stories</h2>
+                        <p>Real achievements from Saudi professionals who transformed their careers with Ana_Qadha.</p>
+                    </div>
+                    <div class="content-placeholder">
+                        <h3>Success Stories & Testimonials</h3>
+                        <p>Add compelling success stories and testimonials:</p>
+                        <ul>
+                            <li>Career transition success stories</li>
+                            <li>Salary increase achievements and promotions</li>
+                            <li>Skills development transformation outcomes</li>
+                            <li>Industry recognition and professional growth</li>
+                            <li>Video testimonials and case studies</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- CTA Section -->
+                <section class="content-section">
+                    <div style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple)); color: white; padding: 80px 40px; border-radius: var(--radius-lg); text-align: center;">
+                        <h2 style="color: white; font-size: 32px; margin-bottom: 16px;">Ready to transform your career?</h2>
+                        <p style="font-size: 18px; margin-bottom: 32px; opacity: 0.9;">Join thousands of Saudi professionals advancing their careers with Ana_Qadha</p>
+                        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                            <a href="#" class="btn" style="background: white; color: var(--primary-blue); padding: 12px 24px;" onclick="openModal('signup')">Start free assessment</a>
+                            <a href="#" class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 12px 24px;" onclick="showPage('dashboard')">Explore platform</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
 
         <!-- Dashboard -->
         <div class="page" id="dashboard">
             <div class="container">
-                <div class="dashboard">
-                    <div class="dashboard-header">
-                        <div class="user-profile">
-                            <div class="avatar">AQ</div>
+                <div class="section section-sm">
+                    <div class="dashboard-card">
+                        <div class="dashboard-header">
+                            <div class="user-info">
+                                <div class="user-avatar">👤</div>
+                                <div>
+                                    <h2 style="margin-bottom: 4px;">Welcome back</h2>
+                                    <p style="opacity: 0.8;">Continue your professional development journey</p>
+                                </div>
+                            </div>
                             <div>
-                                <h3>Welcome back!</h3>
-                                <p>Ready to continue your journey?</p>
+                                <select id="userType" class="form-input" onchange="handleUserTypeChange()" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;">
+                                    <option value="">Select your level</option>
+                                    <option value="highschool">High School Student</option>
+                                    <option value="early">Early Career Professional</option>
+                                    <option value="mid">Mid-Career Professional</option>
+                                </select>
                             </div>
                         </div>
-                        <div>
-                            <select id="userType" onchange="handleUserTypeChange()">
-                                <option value="">Select your level</option>
-                                <option value="highschool">High School Student</option>
-                                <option value="early">Early Career</option>
-                                <option value="mid">Mid Career</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div id="uploadSection" class="upload-section" style="display: none;">
-                        <h3>Upload Your CV</h3>
-                        <p>Drop your CV here or click to browse</p>
-                        <input type="file" id="cvUpload" accept=".pdf,.doc,.docx" style="display: none;">
-                        <button class="btn btn-primary" onclick="document.getElementById('cvUpload').click()">Choose File</button>
-                    </div>
-
-                    <div id="highschoolSection" style="display: none;">
-                        <h3>🎓 Let's Discover Your Path</h3>
-                        <p>As a high school student, we'll help you explore career opportunities that align with your interests and Saudi Arabia's growing industries.</p>
-                        <button class="btn btn-primary" onclick="startCareerAssessment()">Start Career Assessment</button>
-                    </div>
-
-                    <div class="progress-section">
-                        <div class="progress-card">
-                            <h4>Skills Assessment</h4>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 0%"></div>
+                        <div class="dashboard-content">
+                            <div id="uploadSection" class="upload-zone hidden">
+                                <div class="upload-icon">📄</div>
+                                <h3 style="margin-bottom: 8px;">Upload your CV for AI analysis</h3>
+                                <p style="color: var(--text-secondary); margin-bottom: 20px;">Get personalized recommendations based on your experience</p>
+                                <input type="file" id="cvUpload" accept=".pdf,.doc,.docx" style="display: none;">
+                                <button class="btn btn-primary" onclick="document.getElementById('cvUpload').click()">
+                                    Choose file
+                                </button>
                             </div>
-                            <p>Complete your skills evaluation</p>
-                        </div>
-                        <div class="progress-card">
-                            <h4>Course Recommendations</h4>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 0%"></div>
-                            </div>
-                            <p>Get personalized course suggestions</p>
-                        </div>
-                        <div class="progress-card">
-                            <h4>CV Optimization</h4>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 0%"></div>
-                            </div>
-                            <p>Enhance your professional profile</p>
-                        </div>
-                    </div>
 
-                    <div id="recommendations" style="display: none;">
-                        <h3>🎯 Your Personalized Recommendations</h3>
-                        <div id="recommendationsList"></div>
+                            <div id="highschoolSection" class="text-center hidden">
+                                <h3 style="margin-bottom: 12px;">Discover your career path</h3>
+                                <p style="color: var(--text-secondary); margin-bottom: 24px;">Explore opportunities that match your interests and Saudi Arabia's growing industries</p>
+                                <button class="btn btn-primary" onclick="startCareerAssessment()">
+                                    Start career assessment
+                                </button>
+                            </div>
+
+                            <div class="progress-grid">
+                                <div class="progress-card">
+                                    <div class="progress-header">
+                                        <div class="progress-title">Career Assessment</div>
+                                        <div class="progress-percentage">0%</div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%"></div>
+                                    </div>
+                                    <p style="color: var(--text-secondary); font-size: 14px;">Discover your ideal career path</p>
+                                </div>
+                                <div class="progress-card">
+                                    <div class="progress-header">
+                                        <div class="progress-title">Skills Development</div>
+                                        <div class="progress-percentage">0%</div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%"></div>
+                                    </div>
+                                    <p style="color: var(--text-secondary); font-size: 14px;">Build essential competencies</p>
+                                </div>
+                                <div class="progress-card">
+                                    <div class="progress-header">
+                                        <div class="progress-title">CV Optimization</div>
+                                        <div class="progress-percentage">0%</div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%"></div>
+                                    </div>
+                                    <p style="color: var(--text-secondary); font-size: 14px;">Professional profile enhancement</p>
+                                </div>
+                            </div>
+
+                            <div id="recommendations" class="hidden">
+                                <h3 style="margin-bottom: 20px;">Your personalized recommendations</h3>
+                                <div id="recommendationsList"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Chat Page -->
+        <!-- Chat Assistant -->
         <div class="page" id="chat">
             <div class="container">
-                <div class="chat-container">
-                    <div class="chat-header">
-                        <div class="avatar">AI</div>
-                        <div>
-                            <h3>Career Assistant</h3>
-                            <p>Your personal AI career advisor</p>
-                        </div>
+                <div class="section section-sm">
+                    <div class="section-header">
+                        <h2>AI Career Assistant</h2>
+                        <p>Get personalized guidance for your professional development journey</p>
                     </div>
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="message bot">
-                            <p>السلام عليكم! Welcome to Ana_Qadha! I'm here to help you with your career journey. How can I assist you today?</p>
+                    
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <div class="chat-avatar">AI</div>
+                            <div>
+                                <div style="font-weight: 600;">Career Assistant</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">Your personal AI advisor</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="chat-input">
-                        <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
-                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message bot">
+                                <div class="message-content">
+                                    Welcome to Ana_Qadha! I'm here to help you navigate your career journey. Whether you're exploring new opportunities, looking to upskill, or planning your next career move, I'm here to assist. How can I help you today?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" id="chatInput" class="chat-input" placeholder="Ask about careers, skills, or courses..." onkeypress="handleChatKeyPress(event)">
+                            <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -668,52 +1111,61 @@
         <!-- CV Builder -->
         <div class="page" id="cv-builder">
             <div class="container">
-                <h2 style="color: white; text-align: center; margin-bottom: 2rem;">AI-Powered CV Builder</h2>
-                <div class="cv-builder">
-                    <div class="cv-form">
-                        <div class="form-group">
-                            <label>Full Name *</label>
-                            <input type="text" id="fullName" placeholder="Enter your full name">
-                        </div>
-                        <div class="form-group">
-                            <label>Email *</label>
-                            <input type="email" id="email" placeholder="your.email@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone *</label>
-                            <input type="tel" id="phone" placeholder="+966 50 123 4567">
-                        </div>
-                        <div class="form-group">
-                            <label>Professional Title</label>
-                            <input type="text" id="title" placeholder="e.g., Software Developer">
-                        </div>
-                        <div class="form-group">
-                            <label>Industry</label>
-                            <select id="industry">
-                                <option value="">Select Industry</option>
-                                <option value="technology">Technology</option>
-                                <option value="healthcare">Healthcare</option>
-                                <option value="finance">Finance</option>
-                                <option value="education">Education</option>
-                                <option value="construction">Construction</option>
-                                <option value="energy">Energy</option>
-                                <option value="tourism">Tourism</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Professional Summary</label>
-                            <textarea id="summary" rows="4" placeholder="Brief description of your experience and goals"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Key Skills (comma separated)</label>
-                            <textarea id="skills" rows="3" placeholder="e.g., JavaScript, Project Management, Arabic, English"></textarea>
-                        </div>
-                        <button class="btn btn-primary" onclick="generateCV()">Generate CV with AI</button>
-                        <button class="btn btn-secondary" onclick="downloadCV()">Download PDF</button>
+                <div class="section section-sm">
+                    <div class="section-header">
+                        <h2>AI-powered CV builder</h2>
+                        <p>Create a professional resume optimized for the Saudi job market</p>
                     </div>
-                    <div class="cv-preview" id="cvPreview">
-                        <h3 style="color: #0f4c3a; text-align: center;">CV Preview</h3>
-                        <p style="text-align: center; color: #666;">Fill in the form to see your CV preview</p>
+                    
+                    <div class="cv-builder">
+                        <div class="cv-form">
+                            <div class="form-group">
+                                <label class="form-label">Full name *</label>
+                                <input type="text" id="fullName" class="form-input" placeholder="Enter your full name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email address *</label>
+                                <input type="email" id="email" class="form-input" placeholder="your.email@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone number *</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="+966 50 123 4567">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Professional title</label>
+                                <input type="text" id="title" class="form-input" placeholder="e.g., Software Developer">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Industry</label>
+                                <select id="industry" class="form-input">
+                                    <option value="">Select industry</option>
+                                    <option value="technology">Technology & IT</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="finance">Finance & Banking</option>
+                                    <option value="education">Education</option>
+                                    <option value="energy">Energy & Utilities</option>
+                                    <option value="tourism">Tourism & Hospitality</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Professional summary</label>
+                                <textarea id="summary" class="form-input" rows="4" placeholder="Brief description of your experience and career objectives"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Key skills (comma separated)</label>
+                                <textarea id="skills" class="form-input" rows="3" placeholder="e.g., JavaScript, Project Management, Arabic"></textarea>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <button class="btn btn-primary" onclick="generateCV()">Generate CV</button>
+                                <button class="btn btn-secondary" onclick="downloadCV()">Download PDF</button>
+                            </div>
+                        </div>
+                        <div class="cv-preview" id="cvPreview">
+                            <div style="text-align: center; color: var(--text-secondary); padding: 40px 20px;">
+                                <h3 style="margin-bottom: 12px; color: var(--text-secondary);">CV Preview</h3>
+                                <p>Fill the form to see your CV preview</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -722,72 +1174,126 @@
         <!-- Assessment -->
         <div class="page" id="assessment">
             <div class="container">
-                <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Skills & Career Assessment</h2>
-                
-                <div class="assessment-card">
-                    <h3>🧠 Discover Your Career Path</h3>
-                    <p>Take our comprehensive assessment to discover careers that match your interests, skills, and personality.</p>
+                <div class="section section-sm">
+                    <div class="section-header">
+                        <h2>Career & skills assessment</h2>
+                        <p>Discover your strengths and find the perfect career path aligned with your goals</p>
+                    </div>
                     
-                    <div class="question">
-                        <h3>1. What type of work environment do you prefer?</h3>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 'environment', 'collaborative')">
-                                🤝 Collaborative team environment
+                    <div class="assessment-container">
+                        <div class="question-block">
+                            <div class="question-title">What type of work environment energizes you most?</div>
+                            <div class="options-list">
+                                <div class="option" onclick="selectOption(this, 'environment', 'collaborative')">
+                                    <div class="option-icon">🤝</div>
+                                    <div class="option-text">
+                                        <h4>Collaborative team environment</h4>
+                                        <p>Working closely with diverse teams and contributing to group success</p>
+                                    </div>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 'environment', 'independent')">
+                                    <div class="option-icon">🏠</div>
+                                    <div class="option-text">
+                                        <h4>Independent & flexible</h4>
+                                        <p>Autonomous work with flexible schedules and remote opportunities</p>
+                                    </div>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 'environment', 'dynamic')">
+                                    <div class="option-icon">⚡</div>
+                                    <div class="option-text">
+                                        <h4>Fast-paced & dynamic</h4>
+                                        <p>High-energy environments with constant challenges and changes</p>
+                                    </div>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 'environment', 'structured')">
+                                    <div class="option-icon">📊</div>
+                                    <div class="option-text">
+                                        <h4>Structured & organized</h4>
+                                        <p>Clear processes, defined roles, and systematic approaches</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="option" onclick="selectOption(this, 'environment', 'independent')">
-                                🏠 Independent/remote work
+                        </div>
+
+                        <div class="question-block">
+                            <div class="question-title">Which Vision 2030 sector interests you most?</div>
+                            <div class="options-list">
+                                <div class="option" onclick="selectOption(this, 'sector', 'technology')">
+                                    <div class="option-icon">💻</div>
+                                    <div class="option-text">
+                                        <h4>Technology & digital transformation</h4>
+                                        <p>AI, software development, cybersecurity, and digital innovation</p>
+                                    </div>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 'sector', 'tourism')">
+                                    <div class="option-icon">🏛️</div>
+                                    <div class="option-text">
+                                        <h4>Tourism & entertainment</h4>
+                                        <p>Hospitality, cultural heritage, entertainment, and destination management</p>
+                                    </div>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 'sector', 'energy')">
+                                    <div class="option-icon">🔋</div>
+                                    <div class="option-text">
+                                        <h4>Renewable energy & sustainability</h4>
+                                        <p>Solar power, wind energy, green technology, and environmental solutions</p>
+                                    </div>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 'sector', 'healthcare')">
+                                    <div class="option-icon">🏥</div>
+                                    <div class="option-text">
+                                        <h4>Healthcare & life sciences</h4>
+                                        <p>Medical technology, biotechnology, pharmaceuticals, and patient care</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="option" onclick="selectOption(this, 'environment', 'dynamic')">
-                                ⚡ Fast-paced, dynamic environment
+                        </div>
+
+                        <div class="question-block">
+                            <div class="question-title">How do you prefer to learn new skills?</div>
+                            <div class="options-list">
+                                <div class="option" onclick="selectOption(this, 'learning', 'visual')">
+                                    <div class="option-icon">👁️</div>
+                                    <div class="option-text">
+                                        <h4>Visual learning</h4>
+                                        <p>Charts, diagrams, videos, and visual demonstrations</p>
+                                    </div>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 'learning', 'hands-on')">
+                                    <div class="option-icon">🛠️</div>
+                                    <div class="option-text">
+                                        <h4>Hands-on practice</h4>
+                                        <p>Practical exercises, labs, and real-world applications</p>
+                                    </div>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 'learning', 'reading')">
+                                    <div class="option-icon">📚</div>
+                                    <div class="option-text">
+                                        <h4>Reading & research</h4>
+                                        <p>In-depth articles, books, and comprehensive study materials</p>
+                                    </div>
+                                </div>
+                                <div class="option" onclick="selectOption(this, 'learning', 'discussion')">
+                                    <div class="option-icon">💬</div>
+                                    <div class="option-text">
+                                        <h4>Discussion & collaboration</h4>
+                                        <p>Group discussions, peer learning, and interactive sessions</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="option" onclick="selectOption(this, 'environment', 'structured')">
-                                📊 Structured, organized workplace
-                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-primary" onclick="submitAssessment()" style="padding: 12px 32px;">
+                                Get my results
+                            </button>
                         </div>
                     </div>
 
-                    <div class="question">
-                        <h3>2. Which Saudi Vision 2030 sector interests you most?</h3>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 'sector', 'technology')">
-                                💻 Technology & Digital Transformation
-                            </div>
-                            <div class="option" onclick="selectOption(this, 'sector', 'tourism')">
-                                🏛️ Tourism & Entertainment
-                            </div>
-                            <div class="option" onclick="selectOption(this, 'sector', 'energy')">
-                                🔋 Renewable Energy & Sustainability
-                            </div>
-                            <div class="option" onclick="selectOption(this, 'sector', 'healthcare')">
-                                🏥 Healthcare & Life Sciences
-                            </div>
-                        </div>
+                    <div id="assessmentResults" class="assessment-container hidden">
+                        <h3 style="text-align: center; margin-bottom: 24px;">Your assessment results</h3>
+                        <div id="resultsContent"></div>
                     </div>
-
-                    <div class="question">
-                        <h3>3. What's your preferred learning style?</h3>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 'learning', 'visual')">
-                                👁️ Visual (charts, diagrams, videos)
-                            </div>
-                            <div class="option" onclick="selectOption(this, 'learning', 'hands-on')">
-                                🛠️ Hands-on (practical exercises)
-                            </div>
-                            <div class="option" onclick="selectOption(this, 'learning', 'reading')">
-                                📚 Reading & Research
-                            </div>
-                            <div class="option" onclick="selectOption(this, 'learning', 'discussion')">
-                                💬 Discussion & Collaboration
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="btn btn-primary" onclick="submitAssessment()" style="margin-top: 2rem;">Get My Results</button>
-                </div>
-
-                <div id="assessmentResults" style="display: none;" class="assessment-card">
-                    <h3>🎯 Your Assessment Results</h3>
-                    <div id="resultsContent"></div>
                 </div>
             </div>
         </div>
@@ -796,51 +1302,57 @@
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('login')">&times;</span>
-            <h2>Login to Ana_Qadha</h2>
+            <button class="modal-close" onclick="closeModal('login')">&times;</button>
+            <h2>Sign in to Ana_Qadha</h2>
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" required>
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" required>
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" required>
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
+            <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
+                Don't have an account? <a href="#" onclick="closeModal('login'); openModal('signup');" style="color: var(--primary-blue);">Sign up</a>
+            </p>
         </div>
     </div>
 
     <!-- Signup Modal -->
     <div id="signupModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('signup')">&times;</span>
+            <button class="modal-close" onclick="closeModal('signup')">&times;</button>
             <h2>Join Ana_Qadha</h2>
             <form onsubmit="handleSignup(event)">
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" required>
+                    <label class="form-label">Full name</label>
+                    <input type="text" name="fullName" class="form-input" required>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" required>
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-input" required>
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" required>
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-input" required>
                 </div>
                 <div class="form-group">
-                    <label>I am a:</label>
-                    <select required>
+                    <label class="form-label">Current level</label>
+                    <select name="userType" class="form-input" required>
                         <option value="">Select your level</option>
                         <option value="highschool">High School Student</option>
                         <option value="early">Early Career Professional</option>
                         <option value="mid">Mid-Career Professional</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                <button type="submit" class="btn btn-primary">Create account</button>
             </form>
+            <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
+                Already have an account? <a href="#" onclick="closeModal('signup'); openModal('login');" style="color: var(--primary-blue);">Sign in</a>
+            </p>
         </div>
     </div>
 
@@ -848,26 +1360,24 @@
         // Global state
         let currentUser = null;
         let assessmentAnswers = {};
-        let chatHistory = [];
 
-        // Page navigation
+        // Navigation
         function showPage(pageId) {
-            // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
             
-            // Show selected page
             document.getElementById(pageId).classList.add('active');
             
-            // Update navigation
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
             });
-            event.target.classList.add('active');
+            
+            const activeLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (activeLink) activeLink.classList.add('active');
         }
 
-        // Modal functions
+        // Modals
         function openModal(modalType) {
             document.getElementById(modalType + 'Modal').style.display = 'block';
         }
@@ -879,180 +1389,153 @@
         // Authentication
         function handleLogin(event) {
             event.preventDefault();
-            // Simulate login
             currentUser = { name: 'User', type: 'early' };
             closeModal('login');
+            updateAuthUI();
             showPage('dashboard');
-            updateUI();
         }
 
         function handleSignup(event) {
             event.preventDefault();
-            // Simulate signup
             const formData = new FormData(event.target);
             currentUser = { 
-                name: formData.get('name') || 'New User', 
+                name: formData.get('fullName') || 'User', 
                 type: formData.get('userType') || 'early' 
             };
             closeModal('signup');
+            updateAuthUI();
             showPage('dashboard');
-            updateUI();
         }
 
-        function updateUI() {
+        function updateAuthUI() {
             if (currentUser) {
-                document.querySelector('.auth-buttons').innerHTML = `
-                    <span>Welcome, ${currentUser.name}!</span>
-                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                const name = currentUser.name.split(' ')[0];
+                document.querySelector('.auth-section').innerHTML = `
+                    <span style="color: var(--text-secondary);">Welcome, ${name}</span>
+                    <button class="btn btn-ghost" onclick="logout()">Sign out</button>
                 `;
             }
         }
 
         function logout() {
             currentUser = null;
-            document.querySelector('.auth-buttons').innerHTML = `
-                <a href="#" class="btn btn-secondary" onclick="openModal('login')">Login</a>
-                <a href="#" class="btn btn-primary" onclick="openModal('signup')">Sign Up</a>
+            document.querySelector('.auth-section').innerHTML = `
+                <a href="#" class="btn btn-ghost" onclick="openModal('login')">Sign in</a>
+                <a href="#" class="btn btn-primary" onclick="openModal('signup')">Get started</a>
             `;
-            showPage('welcome');
+            showPage('home');
         }
 
-        // Dashboard functions
+        // Dashboard
         function handleUserTypeChange() {
             const userType = document.getElementById('userType').value;
             const uploadSection = document.getElementById('uploadSection');
             const highschoolSection = document.getElementById('highschoolSection');
             
             if (userType === 'highschool') {
-                uploadSection.style.display = 'none';
-                highschoolSection.style.display = 'block';
+                uploadSection.classList.add('hidden');
+                highschoolSection.classList.remove('hidden');
             } else if (userType) {
-                uploadSection.style.display = 'block';
-                highschoolSection.style.display = 'none';
+                uploadSection.classList.remove('hidden');
+                highschoolSection.classList.add('hidden');
             } else {
-                uploadSection.style.display = 'none';
-                highschoolSection.style.display = 'none';
+                uploadSection.classList.add('hidden');
+                highschoolSection.classList.add('hidden');
             }
         }
 
         function startCareerAssessment() {
             showPage('assessment');
-            // Animate progress
-            setTimeout(() => {
-                document.querySelector('.progress-card .progress-fill').style.width = '25%';
-            }, 500);
+            updateProgress(0, 25);
         }
 
-        // File upload handling
+        function updateProgress(index, percentage) {
+            const progressFills = document.querySelectorAll('.progress-fill');
+            const progressPercentages = document.querySelectorAll('.progress-percentage');
+            
+            if (progressFills[index]) {
+                progressFills[index].style.width = percentage + '%';
+                progressPercentages[index].textContent = percentage + '%';
+            }
+        }
+
+        // File upload
         document.addEventListener('DOMContentLoaded', function() {
-            const uploadSection = document.getElementById('uploadSection');
             const fileInput = document.getElementById('cvUpload');
-
-            if (uploadSection && fileInput) {
-                uploadSection.addEventListener('dragover', function(e) {
-                    e.preventDefault();
-                    uploadSection.classList.add('dragover');
-                });
-
-                uploadSection.addEventListener('dragleave', function(e) {
-                    e.preventDefault();
-                    uploadSection.classList.remove('dragover');
-                });
-
-                uploadSection.addEventListener('drop', function(e) {
-                    e.preventDefault();
-                    uploadSection.classList.remove('dragover');
-                    const files = e.dataTransfer.files;
-                    if (files.length > 0) {
-                        handleFileUpload(files[0]);
-                    }
-                });
-
+            if (fileInput) {
                 fileInput.addEventListener('change', function(e) {
                     if (e.target.files.length > 0) {
-                        handleFileUpload(e.target.files[0]);
+                        processCV(e.target.files[0]);
                     }
                 });
             }
         });
 
-        function handleFileUpload(file) {
-            // Simulate file processing
+        function processCV(file) {
             const uploadSection = document.getElementById('uploadSection');
             uploadSection.innerHTML = `
-                <div class="loading"></div>
-                <p>Analyzing your CV... This may take a moment.</p>
+                <div style="text-align: center;">
+                    <div class="loading" style="margin: 0 auto 16px;"></div>
+                    <h3>Analyzing your CV...</h3>
+                    <p style="color: var(--text-secondary);">This will take a moment</p>
+                </div>
             `;
 
-            // Simulate API call
             setTimeout(() => {
-                analyzeCV(file);
-            }, 2000);
+                showRecommendations();
+                updateProgress(1, 75);
+                updateProgress(2, 50);
+            }, 3000);
         }
 
-        function analyzeCV(file) {
-            // Simulate CV analysis results
+        function showRecommendations() {
             const recommendations = [
                 {
-                    title: "Data Analysis with Python",
+                    title: "Data Science Fundamentals",
                     provider: "Coursera",
                     duration: "6 weeks",
-                    level: "Beginner",
-                    reason: "Your CV shows interest in data but lacks technical skills"
+                    reason: "Build on your analytical background"
                 },
                 {
-                    title: "Project Management Professional",
-                    provider: "Udemy",
-                    duration: "40 hours",
-                    level: "Intermediate",
-                    reason: "Your leadership experience could be enhanced with formal PM training"
+                    title: "Digital Marketing Strategy",
+                    provider: "Udemy", 
+                    duration: "20 hours",
+                    reason: "Enhance your marketing skills"
                 },
                 {
-                    title: "Business Communication in Arabic",
+                    title: "Professional Arabic Communication",
                     provider: "edX",
-                    duration: "4 weeks",
-                    level: "Advanced",
-                    reason: "Strengthen your professional Arabic communication skills"
+                    duration: "4 weeks", 
+                    reason: "Strengthen business communication"
                 }
             ];
 
-            displayRecommendations(recommendations);
-            
-            // Update progress bars
-            setTimeout(() => {
-                document.querySelectorAll('.progress-fill')[1].style.width = '75%';
-                document.querySelectorAll('.progress-fill')[2].style.width = '50%';
-            }, 500);
-        }
-
-        function displayRecommendations(recommendations) {
             const recommendationsDiv = document.getElementById('recommendations');
             const recommendationsList = document.getElementById('recommendationsList');
             
-            let html = '<div class="features-grid">';
+            let html = '<div class="cards-grid">';
             recommendations.forEach(rec => {
                 html += `
-                    <div class="feature-card">
-                        <h4 style="color: #0f4c3a;">${rec.title}</h4>
-                        <p><strong>Provider:</strong> ${rec.provider}</p>
-                        <p><strong>Duration:</strong> ${rec.duration}</p>
-                        <p><strong>Level:</strong> ${rec.level}</p>
-                        <p><em>${rec.reason}</em></p>
-                        <button class="btn btn-primary" onclick="enrollCourse('${rec.title}')">View Course</button>
+                    <div class="card">
+                        <h4 style="color: var(--primary-blue); margin-bottom: 12px;">${rec.title}</h4>
+                        <p style="margin-bottom: 8px;"><strong>Provider:</strong> ${rec.provider}</p>
+                        <p style="margin-bottom: 8px;"><strong>Duration:</strong> ${rec.duration}</p>
+                        <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 20px;">${rec.reason}</p>
+                        <button class="btn btn-primary" onclick="viewCourse('${rec.title}')">View course</button>
                     </div>
                 `;
             });
             html += '</div>';
             
             recommendationsList.innerHTML = html;
-            recommendationsDiv.style.display = 'block';
+            recommendationsDiv.classList.remove('hidden');
         }
 
-        function enrollCourse(courseTitle) {
-            alert(`Redirecting to ${courseTitle}... (This would normally open the course page)`);
+        function viewCourse(title) {
+            alert(`Opening: ${title}\n\nThis would redirect to the course platform.`);
         }
 
-        // Chat functions
+        // Chat
         function handleChatKeyPress(event) {
             if (event.key === 'Enter') {
                 sendMessage();
@@ -1067,9 +1550,8 @@
                 addMessage(message, 'user');
                 input.value = '';
                 
-                // Simulate AI response
                 setTimeout(() => {
-                    const response = generateAIResponse(message);
+                    const response = generateResponse(message);
                     addMessage(response, 'bot');
                 }, 1000);
             }
@@ -1079,38 +1561,33 @@
             const messagesDiv = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}`;
-            messageDiv.innerHTML = `<p>${text}</p>`;
+            messageDiv.innerHTML = `<div class="message-content">${text}</div>`;
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
-        function generateAIResponse(userMessage) {
+        function generateResponse(message) {
             const responses = {
-                'career': "I can help you explore career opportunities in Saudi Arabia! What field interests you most? Technology, healthcare, energy, or tourism?",
-                'skills': "Great question! Based on Saudi Vision 2030, key skills include digital literacy, critical thinking, communication, and adaptability. What's your current skill level?",
-                'courses': "I'd recommend starting with courses in your field of interest. Would you like suggestions for technology, business, or creative skills?",
-                'cv': "I can help you improve your CV! Make sure to highlight relevant experience, use action verbs, and tailor it to Saudi job market expectations.",
-                'default': "That's an interesting question! I'm here to help with career guidance, skill development, and course recommendations. How can I assist you with your professional journey?"
+                'career': "I can help you explore career opportunities in Saudi Arabia! With Vision 2030, there are growing opportunities in technology, healthcare, tourism, and renewable energy. What field interests you?",
+                'skills': "Great question! Key skills for the Saudi market include digital literacy, data analysis, project management, and bilingual communication. What's your current background?",
+                'courses': "I'd recommend courses that align with Vision 2030 priorities. Are you interested in technology, business, healthcare, or another field?",
+                'cv': "I can help optimize your CV for the Saudi job market! Focus on relevant experience, use strong action verbs, and highlight skills that match your target roles.",
+                'default': "I'm here to help with your career development! Ask me about career paths, skills development, course recommendations, or CV optimization."
             };
 
-            const lowerMessage = userMessage.toLowerCase();
+            const lowerMessage = message.toLowerCase();
             
-            if (lowerMessage.includes('career') || lowerMessage.includes('job')) {
-                return responses.career;
-            } else if (lowerMessage.includes('skill') || lowerMessage.includes('learn')) {
-                return responses.skills;
-            } else if (lowerMessage.includes('course') || lowerMessage.includes('training')) {
-                return responses.courses;
-            } else if (lowerMessage.includes('cv') || lowerMessage.includes('resume')) {
-                return responses.cv;
-            } else {
-                return responses.default;
-            }
+            if (lowerMessage.includes('career') || lowerMessage.includes('job')) return responses.career;
+            if (lowerMessage.includes('skill') || lowerMessage.includes('learn')) return responses.skills;
+            if (lowerMessage.includes('course') || lowerMessage.includes('training')) return responses.courses;
+            if (lowerMessage.includes('cv') || lowerMessage.includes('resume')) return responses.cv;
+            
+            return responses.default;
         }
 
-        // CV Builder functions
+        // CV Builder
         function generateCV() {
-            const formData = {
+            const data = {
                 fullName: document.getElementById('fullName').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
@@ -1120,58 +1597,55 @@
                 skills: document.getElementById('skills').value
             };
 
-            if (!formData.fullName || !formData.email) {
+            if (!data.fullName || !data.email) {
                 alert('Please fill in at least your name and email');
                 return;
             }
 
-            const cvPreview = document.getElementById('cvPreview');
-            let skillsArray = formData.skills ? formData.skills.split(',').map(s => s.trim()) : [];
+            const preview = document.getElementById('cvPreview');
+            const skillsArray = data.skills ? data.skills.split(',').map(s => s.trim()) : [];
             
-            cvPreview.innerHTML = `
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <h2 style="color: #0f4c3a; margin-bottom: 0.5rem;">${formData.fullName}</h2>
-                    <p style="color: #1e7355; font-size: 1.1rem; margin-bottom: 1rem;">${formData.title || 'Professional'}</p>
-                    <p>${formData.email} | ${formData.phone}</p>
+            preview.innerHTML = `
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h2 style="color: var(--text-primary); margin-bottom: 8px;">${data.fullName}</h2>
+                    <p style="color: var(--primary-blue); font-size: 16px; margin-bottom: 8px;">${data.title || 'Professional'}</p>
+                    <p style="color: var(--text-secondary);">${data.email} | ${data.phone}</p>
                 </div>
                 
-                ${formData.summary ? `
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #0f4c3a; border-bottom: 2px solid #1e7355; padding-bottom: 0.5rem;">Professional Summary</h3>
-                    <p>${formData.summary}</p>
+                ${data.summary ? `
+                <div style="margin-bottom: 24px;">
+                    <h3 style="color: var(--text-primary); margin-bottom: 12px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px;">Professional Summary</h3>
+                    <p style="color: var(--text-secondary);">${data.summary}</p>
                 </div>
                 ` : ''}
                 
                 ${skillsArray.length > 0 ? `
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #0f4c3a; border-bottom: 2px solid #1e7355; padding-bottom: 0.5rem;">Key Skills</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
-                        ${skillsArray.map(skill => `<span style="background: #e8f5e8; padding: 0.3rem 0.8rem; border-radius: 15px; color: #0f4c3a; font-size: 0.9rem;">${skill}</span>`).join('')}
+                <div style="margin-bottom: 24px;">
+                    <h3 style="color: var(--text-primary); margin-bottom: 12px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px;">Skills</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        ${skillsArray.map(skill => `<span style="background: var(--background-tertiary); padding: 4px 12px; border-radius: 16px; font-size: 14px; color: var(--text-primary);">${skill}</span>`).join('')}
                     </div>
                 </div>
                 ` : ''}
                 
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="color: #0f4c3a; border-bottom: 2px solid #1e7355; padding-bottom: 0.5rem;">Experience</h3>
-                    <p style="color: #666; font-style: italic;">Add your work experience here...</p>
-                </div>
-                
                 <div>
-                    <h3 style="color: #0f4c3a; border-bottom: 2px solid #1e7355; padding-bottom: 0.5rem;">Education</h3>
-                    <p style="color: #666; font-style: italic;">Add your educational background here...</p>
+                    <h3 style="color: var(--text-primary); margin-bottom: 12px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px;">Experience</h3>
+                    <p style="color: var(--text-muted); font-style: italic;">Add your work experience...</p>
                 </div>
             `;
         }
 
         function downloadCV() {
-            alert('CV download feature would be implemented with a PDF generation library like jsPDF');
+            alert('PDF download feature would be implemented with a library like jsPDF');
         }
 
-        // Assessment functions
+        // Assessment
         function selectOption(element, category, value) {
-            // Remove selection from other options in the same category
-            const options = element.parentNode.querySelectorAll('.option');
-            options.forEach(opt => opt.classList.remove('selected'));
+            // Remove selection from other options in same question
+            const questionBlock = element.closest('.question-block');
+            questionBlock.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
             
             // Select this option
             element.classList.add('selected');
@@ -1184,77 +1658,78 @@
                 return;
             }
 
-            // Generate results based on answers
+            // Generate personalized results
             const results = generateAssessmentResults(assessmentAnswers);
-            displayAssessmentResults(results);
+            displayResults(results);
             
             // Update progress
-            document.querySelectorAll('.progress-fill')[0].style.width = '100%';
+            updateProgress(0, 100);
         }
 
         function generateAssessmentResults(answers) {
-            const careerSuggestions = {
+            const careerPaths = {
                 technology: {
-                    collaborative: "Software Developer in a tech startup",
-                    independent: "Freelance Web Developer",
-                    dynamic: "DevOps Engineer",
+                    collaborative: "Software Development Team Lead",
+                    independent: "Full-Stack Developer",
+                    dynamic: "DevOps Engineer", 
                     structured: "Systems Analyst"
                 },
                 tourism: {
-                    collaborative: "Tourism Marketing Coordinator",
+                    collaborative: "Tourism Experience Manager",
                     independent: "Travel Content Creator",
-                    dynamic: "Event Planning Manager",
+                    dynamic: "Event Coordinator",
                     structured: "Tourism Operations Manager"
                 },
                 energy: {
-                    collaborative: "Renewable Energy Project Manager",
+                    collaborative: "Renewable Energy Project Manager", 
                     independent: "Energy Efficiency Consultant",
                     dynamic: "Solar Installation Supervisor",
                     structured: "Energy Systems Engineer"
                 },
                 healthcare: {
                     collaborative: "Healthcare Team Coordinator",
-                    independent: "Medical Research Analyst",
+                    independent: "Medical Research Analyst", 
                     dynamic: "Emergency Response Coordinator",
                     structured: "Healthcare Data Analyst"
                 }
             };
 
-            const career = careerSuggestions[answers.sector]?.[answers.environment] || "Career Counselor recommended";
-            
-            const learningPath = {
-                visual: "Video-based courses and infographics",
-                'hands-on': "Practical workshops and labs",
-                reading: "Research papers and comprehensive guides",
-                discussion: "Group projects and peer learning"
+            const learningStyles = {
+                visual: "Video-based courses and interactive tutorials",
+                'hands-on': "Practical workshops and hands-on projects",
+                reading: "Comprehensive guides and research materials", 
+                discussion: "Group learning and collaborative projects"
             };
+
+            const career = careerPaths[answers.sector]?.[answers.environment] || "Career Advisor Recommended";
+            const learning = learningStyles[answers.learning] || "Mixed learning approach";
 
             return {
                 career: career,
-                learningStyle: learningPath[answers.learning] || "Mixed learning approach",
+                learningStyle: learning,
                 sector: answers.sector,
                 environment: answers.environment
             };
         }
 
-        function displayAssessmentResults(results) {
+        function displayResults(results) {
             const resultsDiv = document.getElementById('assessmentResults');
             const resultsContent = document.getElementById('resultsContent');
             
             resultsContent.innerHTML = `
-                <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
-                    <h4 style="color: #0f4c3a;">🎯 Recommended Career Path</h4>
-                    <p style="font-size: 1.1rem; font-weight: 600;">${results.career}</p>
+                <div style="background: rgba(30, 136, 229, 0.05); border-left: 4px solid var(--primary-blue); padding: 24px; border-radius: var(--radius-md); margin-bottom: 20px;">
+                    <h4 style="color: var(--primary-blue); margin-bottom: 8px;">🎯 Recommended Career Path</h4>
+                    <p style="font-size: 18px; font-weight: 600; color: var(--text-primary);">${results.career}</p>
                 </div>
                 
-                <div style="background: #f0f8ff; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
-                    <h4 style="color: #0f4c3a;">📚 Your Learning Style</h4>
-                    <p>${results.learningStyle}</p>
+                <div style="background: rgba(102, 187, 106, 0.05); border-left: 4px solid var(--primary-green); padding: 24px; border-radius: var(--radius-md); margin-bottom: 20px;">
+                    <h4 style="color: var(--primary-green); margin-bottom: 8px;">📚 Your Learning Style</h4>
+                    <p style="color: var(--text-primary);">${results.learningStyle}</p>
                 </div>
                 
-                <div style="background: #fff8e1; padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
-                    <h4 style="color: #0f4c3a;">🚀 Next Steps</h4>
-                    <ul style="margin-left: 1rem;">
+                <div style="background: rgba(229, 62, 62, 0.05); border-left: 4px solid var(--primary-red); padding: 24px; border-radius: var(--radius-md); margin-bottom: 24px;">
+                    <h4 style="color: var(--primary-red); margin-bottom: 12px;">🚀 Next Steps</h4>
+                    <ul style="margin-left: 20px; color: var(--text-secondary);">
                         <li>Explore courses in ${results.sector} sector</li>
                         <li>Build your CV with relevant skills</li>
                         <li>Connect with professionals in your field</li>
@@ -1262,34 +1737,26 @@
                     </ul>
                 </div>
                 
-                <button class="btn btn-primary" onclick="showPage('dashboard')" style="margin-top: 1rem;">
-                    Get Course Recommendations
-                </button>
+                <div style="text-align: center;">
+                    <button class="btn btn-primary" onclick="showPage('dashboard')" style="padding: 12px 24px;">
+                        Get Course Recommendations
+                    </button>
+                </div>
             `;
             
-            resultsDiv.style.display = 'block';
+            resultsDiv.classList.remove('hidden');
             resultsDiv.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Close modals when clicking outside
+        // Close modals on outside click
         window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Add some initial animation
-            setTimeout(() => {
-                document.querySelectorAll('.feature-card').forEach((card, index) => {
-                    card.style.animationDelay = `${index * 0.2}s`;
-                });
-            }, 100);
+            // Set up any initial animations or states
+            console.log('Ana_Qadha platform initialized');
         });
-    </script>
-</body>
-</html>
