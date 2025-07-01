@@ -1459,14 +1459,53 @@
             }
         }
 
-        // File upload
+        // File upload with drag and drop
         document.addEventListener('DOMContentLoaded', function() {
             const fileInput = document.getElementById('cvUpload');
-            if (fileInput) {
+            const uploadSection = document.getElementById('uploadSection');
+            
+            if (fileInput && uploadSection) {
+                // File input change
                 fileInput.addEventListener('change', function(e) {
                     if (e.target.files.length > 0) {
                         processCV(e.target.files[0]);
                     }
+                });
+
+                // Drag and drop functionality
+                uploadSection.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    uploadSection.style.borderColor = 'var(--primary-purple)';
+                    uploadSection.style.background = 'rgba(171, 71, 188, 0.05)';
+                });
+
+                uploadSection.addEventListener('dragleave', function(e) {
+                    e.preventDefault();
+                    uploadSection.style.borderColor = 'var(--primary-blue)';
+                    uploadSection.style.background = 'rgba(30, 136, 229, 0.02)';
+                });
+
+                uploadSection.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    uploadSection.style.borderColor = 'var(--primary-blue)';
+                    uploadSection.style.background = 'rgba(30, 136, 229, 0.02)';
+                    
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        const file = files[0];
+                        if (file.type === 'application/pdf' || 
+                            file.type === 'application/msword' || 
+                            file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                            processCV(file);
+                        } else {
+                            alert('Please upload a PDF or Word document (.pdf, .doc, .docx)');
+                        }
+                    }
+                });
+
+                // Click to upload
+                uploadSection.addEventListener('click', function() {
+                    fileInput.click();
                 });
             }
         });
@@ -1476,52 +1515,125 @@
             uploadSection.innerHTML = `
                 <div style="text-align: center;">
                     <div class="loading" style="margin: 0 auto 16px;"></div>
-                    <h3>Analyzing your CV...</h3>
-                    <p style="color: var(--text-secondary);">This will take a moment</p>
+                    <h3>Analyzing ${file.name}...</h3>
+                    <p style="color: var(--text-secondary);">Our AI is processing your CV and generating personalized recommendations</p>
+                    <div style="margin-top: 16px; padding: 12px; background: var(--background-tertiary); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 14px;">
+                        📄 File: ${file.name}<br>
+                        📊 Size: ${(file.size / 1024).toFixed(1)} KB<br>
+                        🔍 Extracting skills, experience, and keywords...
+                    </div>
                 </div>
             `;
 
+            // Simulate realistic CV analysis time
             setTimeout(() => {
-                showRecommendations();
+                showRecommendations(file.name);
                 updateProgress(1, 75);
                 updateProgress(2, 50);
-            }, 3000);
+            }, 4000);
         }
 
-        function showRecommendations() {
+        function showRecommendations(fileName) {
+            // More detailed and realistic recommendations based on "CV analysis"
             const recommendations = [
                 {
-                    title: "Data Science Fundamentals",
-                    provider: "Coursera",
+                    title: "Python for Data Science and Machine Learning",
+                    provider: "Coursera - University of Michigan",
+                    duration: "5 months",
+                    level: "Intermediate",
+                    price: "Free to audit",
+                    reason: "Your CV shows analytical skills that could be enhanced with Python programming",
+                    skills: ["Python", "Data Analysis", "Machine Learning", "Pandas", "NumPy"],
+                    rating: "4.8/5 (45,000+ reviews)"
+                },
+                {
+                    title: "Digital Marketing Strategy and Planning",
+                    provider: "Udemy",
+                    duration: "25 hours",
+                    level: "Beginner to Advanced",
+                    price: "SAR 299",
+                    reason: "Complement your profile with high-demand digital marketing expertise",
+                    skills: ["SEO", "Social Media Marketing", "Google Analytics", "Content Strategy"],
+                    rating: "4.6/5 (12,000+ reviews)"
+                },
+                {
+                    title: "Professional Arabic Business Communication",
+                    provider: "edX - King Abdulaziz University",
                     duration: "6 weeks",
-                    reason: "Build on your analytical background"
+                    level: "Advanced",
+                    price: "Free (Certificate: SAR 150)",
+                    reason: "Enhance your professional Arabic communication for the Saudi business environment",
+                    skills: ["Business Arabic", "Professional Writing", "Presentation Skills"],
+                    rating: "4.7/5 (3,200+ reviews)"
                 },
                 {
-                    title: "Digital Marketing Strategy",
-                    provider: "Udemy", 
-                    duration: "20 hours",
-                    reason: "Enhance your marketing skills"
-                },
-                {
-                    title: "Professional Arabic Communication",
-                    provider: "edX",
-                    duration: "4 weeks", 
-                    reason: "Strengthen business communication"
+                    title: "Project Management Professional (PMP) Prep",
+                    provider: "Coursera - Google",
+                    duration: "6 months",
+                    level: "Intermediate",
+                    price: "SAR 149/month",
+                    reason: "Your experience shows leadership potential - formalize it with PM certification",
+                    skills: ["Project Management", "Agile", "Scrum", "Risk Management", "Team Leadership"],
+                    rating: "4.9/5 (89,000+ reviews)"
                 }
             ];
 
             const recommendationsDiv = document.getElementById('recommendations');
             const recommendationsList = document.getElementById('recommendationsList');
             
-            let html = '<div class="cards-grid">';
-            recommendations.forEach(rec => {
+            let html = `
+                <div style="background: rgba(102, 187, 106, 0.05); border: 1px solid rgba(102, 187, 106, 0.2); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 32px;">
+                    <h4 style="color: var(--primary-green); margin-bottom: 12px;">✅ CV Analysis Complete</h4>
+                    <p style="color: var(--text-primary); margin-bottom: 12px;">Based on your background, we've identified key skills gaps and growth opportunities.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: 600; color: var(--primary-blue);">85%</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">CV Match Score</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: 600; color: var(--primary-green);">12</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">Skills Identified</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: 600; color: var(--primary-red);">4</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">Skill Gaps Found</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cards-grid">
+            `;
+            
+            recommendations.forEach((rec, index) => {
                 html += `
-                    <div class="card">
-                        <h4 style="color: var(--primary-blue); margin-bottom: 12px;">${rec.title}</h4>
-                        <p style="margin-bottom: 8px;"><strong>Provider:</strong> ${rec.provider}</p>
-                        <p style="margin-bottom: 8px;"><strong>Duration:</strong> ${rec.duration}</p>
-                        <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 20px;">${rec.reason}</p>
-                        <button class="btn btn-primary" onclick="viewCourse('${rec.title}')">View course</button>
+                    <div class="card" style="position: relative;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 8px; flex: 1;">${rec.title}</h4>
+                            <span style="background: var(--primary-green); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">RECOMMENDED</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 16px;">
+                            <p style="margin-bottom: 4px;"><strong>Provider:</strong> ${rec.provider}</p>
+                            <p style="margin-bottom: 4px;"><strong>Duration:</strong> ${rec.duration}</p>
+                            <p style="margin-bottom: 4px;"><strong>Level:</strong> ${rec.level}</p>
+                            <p style="margin-bottom: 4px;"><strong>Price:</strong> ${rec.price}</p>
+                            <p style="margin-bottom: 12px;"><strong>Rating:</strong> ⭐ ${rec.rating}</p>
+                        </div>
+                        
+                        <div style="background: var(--background-secondary); padding: 12px; border-radius: var(--radius-md); margin-bottom: 16px;">
+                            <p style="font-style: italic; color: var(--text-secondary); font-size: 14px;">${rec.reason}</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <strong style="font-size: 14px; color: var(--text-primary);">Skills you'll gain:</strong>
+                            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
+                                ${rec.skills.map(skill => `<span style="background: var(--background-tertiary); padding: 4px 8px; border-radius: 12px; font-size: 12px; color: var(--text-primary);">${skill}</span>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-primary" onclick="viewCourse('${rec.title}', '${rec.provider}')" style="flex: 1;">View Course</button>
+                            <button class="btn btn-secondary" onclick="saveCourse('${rec.title}')" style="padding: 8px 12px;">📌</button>
+                        </div>
                     </div>
                 `;
             });
@@ -1529,10 +1641,19 @@
             
             recommendationsList.innerHTML = html;
             recommendationsDiv.classList.remove('hidden');
+
+            // Scroll to recommendations
+            setTimeout(() => {
+                recommendationsDiv.scrollIntoView({ behavior: 'smooth' });
+            }, 500);
         }
 
-        function viewCourse(title) {
-            alert(`Opening: ${title}\n\nThis would redirect to the course platform.`);
+        function viewCourse(title, provider) {
+            alert(`Opening "${title}" from ${provider}\n\n✅ In a real implementation, this would:\n• Redirect to the course platform\n• Track user interest\n• Pre-fill enrollment forms\n• Show detailed curriculum`);
+        }
+
+        function saveCourse(title) {
+            alert(`📌 Course "${title}" saved to your learning plan!\n\n✅ In a real implementation, this would:\n• Add to user's saved courses\n• Send follow-up reminders\n• Track learning progress\n• Suggest similar courses`);
         }
 
         // Chat
@@ -1572,7 +1693,14 @@
                 'skills': "Great question! Key skills for the Saudi market include digital literacy, data analysis, project management, and bilingual communication. What's your current background?",
                 'courses': "I'd recommend courses that align with Vision 2030 priorities. Are you interested in technology, business, healthcare, or another field?",
                 'cv': "I can help optimize your CV for the Saudi job market! Focus on relevant experience, use strong action verbs, and highlight skills that match your target roles.",
-                'default': "I'm here to help with your career development! Ask me about career paths, skills development, course recommendations, or CV optimization."
+                'saudi': "Saudi Arabia's Vision 2030 is creating incredible opportunities! The focus areas include NEOM, digital transformation, tourism development, and renewable energy. Which sector interests you most?",
+                'vision': "Vision 2030 aims to diversify Saudi Arabia's economy and develop human capital. Key programs include the Human Capital Development Program and Quality of Life Program. How can I help you align with these goals?",
+                'technology': "The technology sector in Saudi Arabia is booming! Key areas include AI, cybersecurity, fintech, and smart city development. Popular roles include software developers, data scientists, and digital transformation specialists.",
+                'healthcare': "Healthcare is a major focus of Vision 2030! There's growing demand for medical professionals, health informatics specialists, biotechnology experts, and healthcare administrators.",
+                'tourism': "The tourism sector is expanding rapidly with projects like NEOM, Red Sea Project, and heritage site development. Opportunities exist in hospitality management, cultural heritage, and experience design.",
+                'energy': "Saudi Arabia is leading in renewable energy transition! The sector needs engineers, project managers, sustainability experts, and green technology specialists.",
+                'help': "I can assist you with: 🎯 Career path recommendations, 📚 Skills assessment, 🎓 Course suggestions, 📄 CV optimization, 💼 Job market insights, 🇸🇦 Vision 2030 alignment. What would you like to explore?",
+                'default': "I'm here to help with your career development! Ask me about career paths, skills development, course recommendations, CV optimization, or how to align with Saudi Vision 2030."
             };
 
             const lowerMessage = message.toLowerCase();
@@ -1581,11 +1709,18 @@
             if (lowerMessage.includes('skill') || lowerMessage.includes('learn')) return responses.skills;
             if (lowerMessage.includes('course') || lowerMessage.includes('training')) return responses.courses;
             if (lowerMessage.includes('cv') || lowerMessage.includes('resume')) return responses.cv;
+            if (lowerMessage.includes('saudi') || lowerMessage.includes('arabia')) return responses.saudi;
+            if (lowerMessage.includes('vision') || lowerMessage.includes('2030')) return responses.vision;
+            if (lowerMessage.includes('technology') || lowerMessage.includes('tech') || lowerMessage.includes('it')) return responses.technology;
+            if (lowerMessage.includes('healthcare') || lowerMessage.includes('medical') || lowerMessage.includes('health')) return responses.healthcare;
+            if (lowerMessage.includes('tourism') || lowerMessage.includes('travel') || lowerMessage.includes('hospitality')) return responses.tourism;
+            if (lowerMessage.includes('energy') || lowerMessage.includes('renewable') || lowerMessage.includes('solar')) return responses.energy;
+            if (lowerMessage.includes('help') || lowerMessage.includes('what can you')) return responses.help;
             
             return responses.default;
         }
 
-        // CV Builder
+        // CV Builder with real-time preview
         function generateCV() {
             const data = {
                 fullName: document.getElementById('fullName').value,
@@ -1598,45 +1733,164 @@
             };
 
             if (!data.fullName || !data.email) {
-                alert('Please fill in at least your name and email');
+                alert('Please fill in at least your name and email to generate CV');
                 return;
             }
 
             const preview = document.getElementById('cvPreview');
-            const skillsArray = data.skills ? data.skills.split(',').map(s => s.trim()) : [];
+            const skillsArray = data.skills ? data.skills.split(',').map(s => s.trim()).filter(s => s) : [];
             
             preview.innerHTML = `
-                <div style="text-align: center; margin-bottom: 32px;">
-                    <h2 style="color: var(--text-primary); margin-bottom: 8px;">${data.fullName}</h2>
-                    <p style="color: var(--primary-blue); font-size: 16px; margin-bottom: 8px;">${data.title || 'Professional'}</p>
-                    <p style="color: var(--text-secondary);">${data.email} | ${data.phone}</p>
-                </div>
-                
-                ${data.summary ? `
-                <div style="margin-bottom: 24px;">
-                    <h3 style="color: var(--text-primary); margin-bottom: 12px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px;">Professional Summary</h3>
-                    <p style="color: var(--text-secondary);">${data.summary}</p>
-                </div>
-                ` : ''}
-                
-                ${skillsArray.length > 0 ? `
-                <div style="margin-bottom: 24px;">
-                    <h3 style="color: var(--text-primary); margin-bottom: 12px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px;">Skills</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        ${skillsArray.map(skill => `<span style="background: var(--background-tertiary); padding: 4px 12px; border-radius: 16px; font-size: 14px; color: var(--text-primary);">${skill}</span>`).join('')}
+                <div style="background: white; padding: 32px; border-radius: var(--radius-md); box-shadow: var(--shadow-md); min-height: 600px;">
+                    <!-- Header -->
+                    <div style="text-align: center; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 3px solid var(--primary-blue);">
+                        <h1 style="color: var(--text-primary); margin-bottom: 8px; font-size: 28px;">${data.fullName}</h1>
+                        <p style="color: var(--primary-blue); font-size: 18px; font-weight: 600; margin-bottom: 8px;">${data.title || 'Professional'}</p>
+                        <div style="color: var(--text-secondary); font-size: 14px;">
+                            ${data.email}${data.phone ? ' | ' + data.phone : ''}
+                        </div>
+                        ${data.industry ? `<div style="background: var(--background-tertiary); display: inline-block; padding: 4px 12px; border-radius: 12px; margin-top: 8px; font-size: 12px; color: var(--text-primary);">${data.industry}</div>` : ''}
+                    </div>
+                    
+                    <!-- Professional Summary -->
+                    ${data.summary ? `
+                    <div style="margin-bottom: 32px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 12px; font-size: 16px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">PROFESSIONAL SUMMARY</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.6; margin-top: 12px;">${data.summary}</p>
+                    </div>
+                    ` : ''}
+                    
+                    <!-- Skills -->
+                    ${skillsArray.length > 0 ? `
+                    <div style="margin-bottom: 32px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 12px; font-size: 16px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">CORE SKILLS</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px;">
+                            ${skillsArray.map((skill, index) => {
+                                const colors = ['var(--primary-blue)', 'var(--primary-green)', 'var(--primary-red)', 'var(--primary-purple)'];
+                                const color = colors[index % colors.length];
+                                return `<div style="background: ${color}; color: white; padding: 6px 12px; border-radius: 16px; font-size: 13px; text-align: center; font-weight: 500;">${skill}</div>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                    ` : ''}
+                    
+                    <!-- Experience Section -->
+                    <div style="margin-bottom: 32px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 12px; font-size: 16px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">PROFESSIONAL EXPERIENCE</h3>
+                        <div style="margin-top: 12px; padding: 20px; background: var(--background-secondary); border-radius: var(--radius-md); border-left: 4px solid var(--primary-green);">
+                            <p style="color: var(--text-muted); font-style: italic; text-align: center;">
+                                📝 Add your work experience here<br>
+                                <span style="font-size: 12px;">Include job titles, companies, dates, and key achievements</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Education Section -->
+                    <div style="margin-bottom: 32px;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 12px; font-size: 16px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">EDUCATION</h3>
+                        <div style="margin-top: 12px; padding: 20px; background: var(--background-secondary); border-radius: var(--radius-md); border-left: 4px solid var(--primary-purple);">
+                            <p style="color: var(--text-muted); font-style: italic; text-align: center;">
+                                🎓 Add your educational background<br>
+                                <span style="font-size: 12px;">Include degrees, universities, graduation dates, and relevant coursework</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Certifications Section -->
+                    <div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 12px; font-size: 16px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px; display: inline-block;">CERTIFICATIONS & ACHIEVEMENTS</h3>
+                        <div style="margin-top: 12px; padding: 20px; background: var(--background-secondary); border-radius: var(--radius-md); border-left: 4px solid var(--primary-yellow);">
+                            <p style="color: var(--text-muted); font-style: italic; text-align: center;">
+                                🏆 Add your certifications and achievements<br>
+                                <span style="font-size: 12px;">Include professional certifications, awards, and notable accomplishments</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Optimization Notice -->
+                    <div style="margin-top: 24px; padding: 16px; background: rgba(30, 136, 229, 0.05); border: 1px solid rgba(30, 136, 229, 0.2); border-radius: var(--radius-md);">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: var(--primary-blue);">🤖</span>
+                            <strong style="color: var(--primary-blue); font-size: 14px;">AI-Optimized for Saudi Job Market</strong>
+                        </div>
+                        <p style="font-size: 12px; color: var(--text-secondary);">
+                            This CV format is optimized for ATS systems and Saudi HR preferences. 
+                            Includes Vision 2030 aligned skills and professional Arabic standards.
+                        </p>
                     </div>
                 </div>
-                ` : ''}
-                
-                <div>
-                    <h3 style="color: var(--text-primary); margin-bottom: 12px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 4px;">Experience</h3>
-                    <p style="color: var(--text-muted); font-style: italic;">Add your work experience...</p>
-                </div>
             `;
+
+            // Show success message
+            setTimeout(() => {
+                const successMsg = document.createElement('div');
+                successMsg.style.cssText = `
+                    position: fixed; top: 100px; right: 24px; background: var(--primary-green); 
+                    color: white; padding: 12px 20px; border-radius: var(--radius-md); 
+                    box-shadow: var(--shadow-lg); z-index: 1001; animation: slideIn 0.3s ease-out;
+                `;
+                successMsg.innerHTML = '✅ CV Generated Successfully!';
+                document.body.appendChild(successMsg);
+                
+                setTimeout(() => {
+                    successMsg.remove();
+                }, 3000);
+            }, 500);
+        }
+
+        // Real-time CV preview as user types
+        function setupRealTimePreview() {
+            const inputs = ['fullName', 'email', 'phone', 'title', 'industry', 'summary', 'skills'];
+            inputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.addEventListener('input', debounce(generateCV, 1000));
+                }
+            });
+        }
+
+        // Debounce function to prevent excessive updates
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
         }
 
         function downloadCV() {
-            alert('PDF download feature would be implemented with a library like jsPDF');
+            // In a real implementation, this would use jsPDF or similar
+            const cvData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                title: document.getElementById('title').value,
+                industry: document.getElementById('industry').value,
+                summary: document.getElementById('summary').value,
+                skills: document.getElementById('skills').value
+            };
+
+            if (!cvData.fullName || !cvData.email) {
+                alert('Please fill in your basic information before downloading.');
+                return;
+            }
+
+            // Show download progress simulation
+            const downloadBtn = event.target;
+            const originalText = downloadBtn.textContent;
+            downloadBtn.innerHTML = '<div class="loading" style="width: 16px; height: 16px; margin-right: 8px;"></div>Generating PDF...';
+            downloadBtn.disabled = true;
+
+            setTimeout(() => {
+                alert(`📄 CV Download Ready!\n\n✅ In a real implementation, this would:\n• Generate a professional PDF using your data\n• Include ATS-optimized formatting\n• Add Saudi market-specific elements\n• Provide multiple template options\n\nFile: ${cvData.fullName}_CV.pdf`);
+                
+                downloadBtn.textContent = originalText;
+                downloadBtn.disabled = false;
+            }, 2000);
         }
 
         // Assessment
@@ -1755,8 +2009,127 @@
             }
         }
 
-        // Initialize
+        // Initialize all functionality when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            // Set up any initial animations or states
             console.log('Ana_Qadha platform initialized');
+            
+            // Set up real-time CV preview
+            setupRealTimePreview();
+            
+            // Add CSS for animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                .chat-messages {
+                    scrollbar-width: thin;
+                    scrollbar-color: var(--border-medium) var(--background-secondary);
+                }
+                
+                .chat-messages::-webkit-scrollbar {
+                    width: 6px;
+                }
+                
+                .chat-messages::-webkit-scrollbar-track {
+                    background: var(--background-secondary);
+                }
+                
+                .chat-messages::-webkit-scrollbar-thumb {
+                    background: var(--border-medium);
+                    border-radius: 3px;
+                }
+                
+                .option:hover {
+                    transform: translateY(-1px);
+                }
+                
+                .card:hover {
+                    transform: translateY(-2px);
+                }
+                
+                .btn:active {
+                    transform: translateY(1px);
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Add welcome message to chat if user is logged in
+            if (currentUser) {
+                setTimeout(() => {
+                    addMessage(`Welcome back, ${currentUser.name}! I'm ready to help you continue your career development journey. What would you like to work on today?`, 'bot');
+                }, 1000);
+            }
         });
+
+        // Enhanced chat with conversation memory
+        let conversationContext = [];
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                conversationContext.push({role: 'user', content: message});
+                input.value = '';
+                
+                // Show typing indicator
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message bot';
+                typingDiv.innerHTML = `
+                    <div class="message-content" style="display: flex; align-items: center; gap: 8px;">
+                        <div class="loading" style="width: 16px; height: 16px;"></div>
+                        AI is thinking...
+                    </div>
+                `;
+                document.getElementById('chatMessages').appendChild(typingDiv);
+                
+                setTimeout(() => {
+                    typingDiv.remove();
+                    const response = generateContextualResponse(message);
+                    addMessage(response, 'bot');
+                    conversationContext.push({role: 'assistant', content: response});
+                    
+                    // Keep conversation context manageable
+                    if (conversationContext.length > 10) {
+                        conversationContext = conversationContext.slice(-8);
+                    }
+                }, 1500);
+            }
+        }
+
+        function generateContextualResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            const previousMessages = conversationContext.slice(-4).map(m => m.content.toLowerCase()).join(' ');
+            
+            // More sophisticated response generation based on context
+            if (lowerMessage.includes('thank') || lowerMessage.includes('شكرا')) {
+                return "You're very welcome! I'm here whenever you need guidance. Is there anything else about your career development I can help you with?";
+            }
+            
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('سلام')) {
+                return "Hello! Great to see you back. I'm your AI career advisor for Ana_Qadha. Whether you're looking to upskill, change careers, or advance in your current role, I'm here to help. What's on your mind today?";
+            }
+            
+            if (lowerMessage.includes('salary') || lowerMessage.includes('pay') || lowerMessage.includes('راتب')) {
+                return "💰 Salary discussions are important! In Saudi Arabia, salaries vary significantly by sector and experience level. Technology and healthcare typically offer higher compensation. I can help you identify high-paying skills to develop. What field are you interested in?";
+            }
+            
+            if (lowerMessage.includes('remote') || lowerMessage.includes('work from home')) {
+                return "🏠 Remote work is becoming more common in Saudi Arabia, especially in tech, consulting, and digital marketing. Many Vision 2030 initiatives support flexible work arrangements. Would you like suggestions for remote-friendly career paths?";
+            }
+            
+            if (lowerMessage.includes('woman') || lowerMessage.includes('female') || lowerMessage.includes('ladies')) {
+                return "👩‍💼 Saudi Arabia has made tremendous strides in women's workforce participation! Vision 2030 aims for 30% female participation. There are excellent opportunities in all sectors, with special initiatives in tech, healthcare, and entrepreneurship. How can I help you advance your career?";
+            }
+            
+            if (lowerMessage.includes('start') || lowerMessage.includes('begin') || lowerMessage.includes('first')) {
+                return "🚀 Perfect! Starting your career development journey is exciting. I recommend we begin with: 1) Skills assessment 2) CV optimization 3) Identifying your target roles. Would you like to start with our career assessment? It takes just 5 minutes!";
+            }
+            
+            // Use the original response system for other queries
+            return generateResponse(message);
+        }
